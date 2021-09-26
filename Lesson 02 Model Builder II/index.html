@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Vojta Barták">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Lesson 2: User environment - Python pro ArcGIS</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Lesson 2: User environment";
+    var mkdocs_page_input_path = "Lesson 02 Model Builder II.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Python pro ArcGIS</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Model Builder</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2001%20Model%20Builder%20I/">Lesson 1: Model editting</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Lesson 2: User environment</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#starting-model">Starting model</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#defining-tool-parameters">Defining tool parameters</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#parameter-names-order-and-default-values">Parameter names, order, and default values</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#help">Help</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#nesting-a-model-in-another-model">Nesting a model in another model</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tasks">Tasks</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Python</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2003%20Writing%20and%20running%20Python%20programs/">Lesson 3: Starting python</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lesson 04 Variables and data types">Lesson 4: Variables and data types</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2005%20Conditions%20and%20Loops/">Lesson 5: Loops and conditions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 6 Interaktivní vstupy do programu a náhodná čísla.md">Lekce 6: Vstupy a náhodná čísla</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 7 Práce s adresářovou strukturou a s textovými soubory.md">Lekce 7: Adresáře a textové soubory</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 8 Funkce a moduly.md">Lekce 8: Funkce a moduly</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 9 Třídy a objekty.md">Lekce 9: Třídy a objekty</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">ArcPy</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Lekce 10 Spouštění nástrojů ArcGIS pomocí balíčku ArcPy.md">Lekce 10: Spouštění nástrojů</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 11 Procházení geodat a jejich vlastností pomocí balíčku ArcPy.md">Lekce 11: Procházení a prohlížení geodat</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 12 Uživatelská rozhraní nástrojů.md">Lekce 12: Uživatelská rozhraní</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 15 Procházení tabulek pomocí kurzorů.md">Lekce 15: Kurzory</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 18 Rastrové analýzy.md">Lekce 18: Rastrové analýzy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about_me/">About me...</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Python pro ArcGIS</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Model Builder &raquo;</li>
+        
+      
+    
+    <li>Lesson 2: User environment</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/edit/master/docs/Lesson 02 Model Builder II.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="lesson-2-user-interface-for-tools-from-model-builder">Lesson 2: User interface for tools from Model Builder</h1>
+<p><em>(c) Vojtěch Barták, FŽP CULS Prague, 2020/2021</em></p>
+<p>In this lesson, we will build on lesson 1 and create a user interface to the model. The model becomes a tool similar to the built-in ArcGIS tools. When running the tool repeatedly, the input and output layers can be changed, as well as the values ​​of other parameters we have defined. In addition, the tool with a defined interface can be used in other models as well as in Python scripts.</p>
+<div class="toc">
+<ul>
+<li><a href="#lesson-2-user-interface-for-tools-from-model-builder">Lesson 2: User interface for tools from Model Builder</a><ul>
+<li><a href="#starting-model">Starting model</a></li>
+<li><a href="#defining-tool-parameters">Defining tool parameters</a></li>
+<li><a href="#parameter-names-order-and-default-values">Parameter names, order, and default values</a></li>
+<li><a href="#help">Help</a></li>
+<li><a href="#nesting-a-model-in-another-model">Nesting a model in another model</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#tasks">Tasks</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="starting-model">Starting model</h2>
+<p>The starting model for this lesson will be the model created in Lesson 1 under Solution B. This model calculates the relative representation of forests in a 300 m wide strip around railways.</p>
+<p><img alt="" src="../images/model2_final.png" /></p>
+<p>So far, we have been used to working with the model in edit mode (right-click on the model in the Catalog and select <em>Edit</em>) and running it using Model -&gt; Run Entire Model. However, the model has a pre-built user interface, similar to the built-in tools in ArcToolbox. We open the window of our model-tool by double-clicking on the model in the Catalog (or right-clicking on the model and selecting <em>Open</em>).</p>
+<p><img alt="" src="../images/image-20200919144334712.png" /></p>
+<p>So far, the tool window does not offer much: as the message in the middle says, it does not have any parameters defined by which the user could control the calculation run. After clicking on OK, the model will start with the settings as we defined them when editing the model (do not hesitate to try it).</p>
+<p>Now let's set the parameters for the model so that the user interface makes a little more sense.</p>
+<h2 id="defining-tool-parameters">Defining tool parameters</h2>
+<p>Defining parameter can be done when editing the model (once again: right-click on the model in the Catalog and select <em>Edit</em>). A parameter is anything we want the user to set before running the tool. So at least it should be input and output data.</p>
+<p>A given model item becomes a parameter when we right-click on it and check the Model Parameter option.</p>
+<p><img alt="" src="../images/image-20200919145103191.png" /></p>
+<p>The letter "P" then appears next to the item in its upper right corner to indicate that it is a model parameter.</p>
+<p>If we set all input layers (railways, districts and raster CLC_2018.tif) and output table (output_table.dbf) as parameters in this way, save the model and then open the tool window, it will now look like this:</p>
+<p><img alt="" src="../images/image-20200919145753041.png" /></p>
+<p>Before running the tool, the user now has the option to change the input layers and decide how to name and where to save the output table.</p>
+<p>What other parameters might the user want to change? For example, he/she could determine the width of the strip around railways in which the analysis is to be performed. Now the buffer radius is fixed at 300 m, but it is quite conceivable that it will be desirable for some application to change this value.</p>
+<p>In the model, the item with the value of 300 does not appear directly, this value is "hidden" in the Buffer tool settings. So how to make a parameter out of it? We have two options:</p>
+<ol>
+<li>We can add a new variable of numeric type (Double) to the model and connect it with the Buffer tool, i.e., make it an entry into this tool:</li>
+</ol>
+<p><img alt="" src="../images/insert_create_variable.png" /></p>
+<p>We then make a parameter from the new variable in the standard procedure (right-click on it and <em>Model Parameter</em>).</p>
+<ol>
+<li>We can make the parameter <em>Distance [value or field]</em> of the Buffer tool directly the parameter of the model. Just right-click on the Buffer tool and select <em>Make Variable -&gt; From Parameter -&gt; Distance [value or field]</em>. We then set the resulting variable as a parameter.</li>
+</ol>
+<p><img alt="" src="../images/image-20200919152600242.png" /></p>
+<p>There is one small difference in these two options: while in the first case the resulting variable (and thus the corresponding parameter) is of type <em>Double</em>, in the second case this variable is of type <em>Distance [value or field]</em>. Instead of a fixed buffer radius, the user can alternatively specify a field in the input layer attribute table in which an individual buffer radius for each feature is specified. For example, we could set a different width of the buffer zone for each district or category of line. The proper choice between such alternatives depends on what you want your tool to offer the user.</p>
+<p>Should there be any more parameter in the model? You can create an almost infinite number of parameters, but we always want to keep the user interface well-arranged and clear and not containing unimportant items. One more parameter is worth considering in our tool: when creating the model, it was important to set <em>Dissolve Type</em> and <em>Dissolve Fields</em> correctly in the Buffer tool so that the resulting table contains summary values ​​for individual districts. However, the field with the district names does not have to be named the same every time the user runs the tool. After all, the user can perform the analysis for other territorial units than for districts (e.g., regions or states). Therefore, it will be a good idea to set the <em>Dissolve Fields</em> parameter of the Buffer tool as a model parameter, in the same way we did with the <em>Distance [value or field]</em> parameter.</p>
+<p>The resulting model should look like this (note the parameter designation with the letter "P"):</p>
+<p><img alt="" src="../images/model2_parameters.png" /></p>
+<p>The tool window now looks like this (attention: the model needs to be saved):</p>
+<p><img alt="" src="../images/image-20200919154834106.png" /></p>
+<h2 id="parameter-names-order-and-default-values">Parameter names, order, and default values</h2>
+<p>The user interface, as we set it up, allows the user to change parameter values, but it doesn't look very nice. If the user is not well acquainted with what the tool should do and what parameters are important, he/she will probably not be very wise from our user interface. To improve this, we need to:</p>
+<ul>
+<li>give reasonable names to the parameters,</li>
+<li>adjust the order of the parameters accordingly,</li>
+<li>set reasonable default values ​​for the parameters,</li>
+<li>document the behavior of the tool using help.</li>
+</ul>
+<p>In this section we will discuss how to get the first three steps, in the next section we will focus on help.</p>
+<p>Parameter names are given by the names of the corresponding variables in the model. The name of a variable (i.e., of an oval in the graphical diagram of the model) is first automatically generated (e.g., the variable representing the input data that we dragged into the model with the mouse is named the same as the corresponding layer in Table of Contents), but it can be changed. Just right-click on the variable and select <em>Rename</em>.</p>
+<p><img alt="" src="../images/rename_parameter.png" /></p>
+<p>When we rename all the parameters of the model in this way, our user interface gets a little clearer:</p>
+<p><img alt="" src="../images/image-20200919170007626.png" /></p>
+<p>The next step is to adjust the order of the parameters. The current order is largely a coincidence: the parameters are in the order in which we created them when editing the model. It is possible to change the order of parameters in the model properties, which are available either by right-clicking on the model in the Catalog -&gt; <em>Properties</em>, or from editing the model via <em>Model -&gt; Model Properties</em>. On the properties tab, go to the <em>Parameters</em> tab, where you can adjust the order of the parameters using arrows.</p>
+<p><img alt="" src="../images/image-20200919170646814.png" /></p>
+<p>After a reasonable adjustment of the order of the parameters, the tool could look something like this:</p>
+<p><img alt="" src="../images/image-20200919170834107.png" /></p>
+<p>Another thing that can be changed is the default parameter values. These are the values ​​that are automatically pre-filled in the fields for individual parameters. The default values ​​are given by how we created the model. You can change them simply by double-clicking on the individual items of the model (during editing) and changing the value.</p>
+<p>For tools that we want to run repeatedly with a certain given parameter setting, it is advisable to set these values ​​as default. However, if we want the tool to be used universally, by different users and in different contexts, it might be reasonable not to set any specific default values. This is simply achieved by deleting the values ​​for individual variables-parameters (the small price is that the model will not be colored - i.e., ready to run - in the editing mode).</p>
+<p><img alt="" src="../images/image-20200919172316709.png" /></p>
+<p>Now the user will be forced to specify the values ​​of all parameters at his own discretion.</p>
+<p>Our tool now looks much more general than at the beginning. For example, try to run it not for districts, but for regions ("kraje" in Czech), with the width of the analyzed band 500 m, or with different widths for different categories of lines. (You can get the layer of regions, for example, from the database <a href="https://www.arcdata.cz/produkty/geograficka-data/arccr-500">ArcData 500</a>, but you must project it to the ETRS 1989 LAEA coordinate system, or you can already download the transformed dataset <a href="">here</a>).</p>
+<h2 id="help">Help</h2>
+<p>First we change the name of the tool: on the <em>General</em> tab of the model properties we fill in the fields <em>Name</em> (actual tool name used, e.g., when calling the tool in Python) and <em>Label</em> (name under which the tool is displayed in the toolbox).</p>
+<p><img alt="" src="../images/image-20200919174455626.png" /></p>
+<p>Help for the tool can be created in HTML format using a form, which we open by right-clicking on the tool in the Catalog and selecting <em>Item Description</em>. In it, after clicking on <em>Edit</em>, we simply fill in the items that we want to document.</p>
+<p><img alt="image-20200919175551407" src="../images/image-20200919175551407.png" /></p>
+<p>We can open the finished help (eg in a web browser) by right-clicking on the model in the Catalog and selecting <em>Help</em>.</p>
+<p><img alt="image-20200919175400583" src="../images/image-20200919175400583.png" /></p>
+<p>The help of individual items is also displayed directly in the tool window by clicking on the <em>Show Help</em> button:</p>
+<p><img alt="" src="../images/image-20200919175146075.png" /></p>
+<h2 id="nesting-a-model-in-another-model">Nesting a model in another model</h2>
+<p>If a model has a defined user interface in the form of adjustable parameters for inputs and outputs, it can be used in a similar way as any other tool in ArcToolbox:</p>
+<ol>
+<li>it can be launched using the tool window,</li>
+<li>it can be inserted into other models,</li>
+<li>it can be called in Python.</li>
+</ol>
+<p>We already know the first option. We will now show the second option, nesting the model in another model. The third option will be the topic of further lessons.</p>
+<p>We will show the nesting of the model into another model on the example when we want to use our new tool in a loop, eg repeatedly for all data sets from a folder. We will solve the situation when we do not have individual districts in one layer, but in separate shapefiles for individual regions stored in a common folder. Instead of inserting the iterator directly into the already created tool, which would require its considerable modification, including modification of the user interface (see <a href="# Tasks">task 2</a> at the end of the exercise), we create a new model (tool) into which we insert the iterator and connect it to our already created tool.</p>
+<p>We must first create the described initial situation: therefore, we must divide the districts into separate shapefiles for individual regions. The <em>Split By Attributes</em> tool from the <em>Analysis Tools -&gt; Extract</em> toolset is best suited for this. In the tool, you must specify a field that will be used to divide the elements into individual new datasets. The values ​​of this field are also used to name them. In our case, it will be a field with the names of regions, which is <em>NAZ_CZNUTS</em>.</p>
+<blockquote>
+<p>You may have noticed a different <em>Split By Attributes</em> tool icon in ArcToolbox. This tool is created in Python. The same icons will appear for the tools you will create later in this course.</p>
+</blockquote>
+<p><img alt="" src="../images/image-20201003123744502.png" /></p>
+<p>In the specified folder (parameter <em>Target Workspace</em>) we can find individual shapefiles of districts in regions, named after the region.</p>
+<p>Now we will create a new model in Model Builder and insert our tool and iterator (iterating over feature classes) into it(<em>Insert -&gt; Iterator -&gt; Feature Classes</em>).</p>
+<p><img alt="" src="../images/image-20201003120500607.png" /></p>
+<p>Now the point is to connect the two components appropriately. Double-click on the iterator to get to its parameters and set the folder whose contents are to be looped through (parameter <em>Workspace or Feature Dataset</em>).</p>
+<p><img alt="" src="../images/image-20201003120639531.png" /></p>
+<p>Other parameters are optional and do not need to be set. For sake of clarity, however, we will explain their meaning:</p>
+<ul>
+<li><em>Wildcard</em> - this is a filter with which we can browse only feature classes whose name has a certain specified structure (eg contains a certain string, starts with a certain letter, etc.).</li>
+<li><em>Feature Type</em> - again a filter, which can be used to set the type of feature classes to be browsed. E.g. you can restrict browsing to polygons only. In our case, we have nothing in the folder other than polygon shapefiles, so we do not need this filter.</li>
+<li><em>Recursive</em> - indicates wheather contents of subfolders of the folder should be browsed as well.</li>
+</ul>
+<p>The iterator has two outputs: the feature class that is processed in the given iteration (in our case, the shapefile of the corresponding region) and the name of this feature class (the name of the region). We will use only the first output, ie the shapefile itself, as in each iteration, it will be the input to our previously created tool. Therefore, we connect this output of the iterator with the tool and set it as the value of the parameter <em>Input polygon layer of zones</em>.</p>
+<p><img alt="" src="../images/image-20201003124019952.png" /></p>
+<blockquote>
+<p>This connection is made possible by the fact that in our previous tool, we have defined a user interface.</p>
+</blockquote>
+<p>To run the tool, we must set the remaining parameters of our nested tool. We now have two options: either set the parameters directly in the model editing mode, or make them parameters of this new tool again, thus defining its user interface (instead of the input layer of districts, there will be a parameter specifying the input folder with regions). For simplicity, we choose the first option.</p>
+<blockquote>
+<p>Attention! Do not forget the parameters that are hidden at first sight, such as defining the radius of the analyzed strip or the field with zone names. You can access them as you would in any other tool: by double-clicking the tool in the model.</p>
+</blockquote>
+<p><img alt="" src="../images/image-20201003124440488.png" /></p>
+<p>Since the output will not be one single table, but as many tables as there are regions, it is necessary to ensure that each is named differently, preferably using the name of the region. We have already solved a similar situation in the last lesson. Recall that in each iteration, the name of the region is an output of the iterator in the form of the variable <em>Name</em>. We can then refer to this variable when defining the name of the output table using the <code>%</code> character, so the name can look like <code>output_table_%Name%.dbf</code>.</p>
+<p>The resulting model looks like this:</p>
+<p><img alt="" src="../images/model4.png" /></p>
+<p>Now all you have to do is save the model, run it with <em>Model -&gt; Run Entire Model</em> and verify that the outputs match your expectations.</p>
+<blockquote>
+<p>You may think that after all it would be easier to simply add another iterator to the original tool, instead of inserting the whole tool into another model. Here, however, you would encounter one of the basic limitations of Model Builder: it does not support multiple iterators in one model. Therefore, if you want to iterate over several hierarchically nested loops, nesting a model in another model is the only solution. However, as you will see, if you create the same tool in Python, you would not encounter any similar restrictions.</p>
+</blockquote>
+<h2 id="summary">Summary</h2>
+<p>In this lesson, you have learned:</p>
+<ul>
+<li>How to create a user interface for a tool from Model Builder by defining its parameters.</li>
+<li>How to set other parameter properties so that the user interface looks good and makes it easier for the user to use.</li>
+<li>How to create help for the tool, both in the form of a separate html page and in the form of a quick help in the tool window.</li>
+<li>How a tool with a created user interface can not only be run through its interface, but also used in another model.</li>
+<li>How to use an iterator over feature classes and how to solve the use of multiple nested iterators in the model.</li>
+</ul>
+<h2 id="tasks">Tasks</h2>
+<ol>
+<li>Create a user interface for the basic task from lesson 1, Solution A.</li>
+<li>Create a user interface for the basic task from lesson 1, Solution C.</li>
+<li>Create user interfaces for the tasks from lesson 1.</li>
+<li>Create a user interface for the last model created in this lesson.</li>
+</ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Lesson%2003%20Writing%20and%20running%20Python%20programs/" class="btn btn-neutral float-right" title="Lesson 3: Starting python">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Lesson%2001%20Model%20Builder%20I/" class="btn btn-neutral" title="Lesson 1: Model editting"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../Lesson%2001%20Model%20Builder%20I/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Lesson%2003%20Writing%20and%20running%20Python%20programs/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

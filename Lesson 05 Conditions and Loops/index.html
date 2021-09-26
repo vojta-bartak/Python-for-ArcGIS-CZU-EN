@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Vojta Barták">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Lesson 5: Loops and conditions - Python pro ArcGIS</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Lesson 5: Loops and conditions";
+    var mkdocs_page_input_path = "Lesson 05 Conditions and Loops.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Python pro ArcGIS</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Model Builder</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2001%20Model%20Builder%20I/">Lesson 1: Model editting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2002%20Model%20Builder%20II/">Lesson 2: User environment</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Python</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2003%20Writing%20and%20running%20Python%20programs/">Lesson 3: Starting python</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lesson 04 Variables and data types">Lesson 4: Variables and data types</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Lesson 5: Loops and conditions</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#logical-expressions">Logical expressions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conditional-statements">Conditional statements</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-while-loop">The while loop</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-for-loop">The for loop</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-break-andcontinue-commands">The break andcontinue commands</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tasks">Tasks</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 6 Interaktivní vstupy do programu a náhodná čísla.md">Lekce 6: Vstupy a náhodná čísla</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 7 Práce s adresářovou strukturou a s textovými soubory.md">Lekce 7: Adresáře a textové soubory</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 8 Funkce a moduly.md">Lekce 8: Funkce a moduly</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 9 Třídy a objekty.md">Lekce 9: Třídy a objekty</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">ArcPy</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Lekce 10 Spouštění nástrojů ArcGIS pomocí balíčku ArcPy.md">Lekce 10: Spouštění nástrojů</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 11 Procházení geodat a jejich vlastností pomocí balíčku ArcPy.md">Lekce 11: Procházení a prohlížení geodat</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 12 Uživatelská rozhraní nástrojů.md">Lekce 12: Uživatelská rozhraní</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 15 Procházení tabulek pomocí kurzorů.md">Lekce 15: Kurzory</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 18 Rastrové analýzy.md">Lekce 18: Rastrové analýzy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about_me/">About me...</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Python pro ArcGIS</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Python &raquo;</li>
+        
+      
+    
+    <li>Lesson 5: Loops and conditions</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/edit/master/docs/Lesson 05 Conditions and Loops.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="lesson-5-program-control-structures-loops-and-conditions">Lesson 5: Program control structures - loops and conditions</h1>
+<p>Program control structures (or just control structures) are language syntactic structures that allow conditional and repetitive execution of a sequence of commands.</p>
+<h2 id="logical-expressions">Logical expressions</h2>
+<p>A <em>logical expression</em> (or <em>logical statement</em>) is any statement to which a logical value (true/false) can be unambiguously attributed, ie to determine whether it is true or false. Assigning a logical value to a given expression is called its <em>evaluation</em>. Logical expressions are used in programming wherever a command (or series of commands) needs to be executed only if a certain condition is met (such commands are called <em>conditional statements</em>). The condition then takes the form of a logical expression, while its fulfillment/non-fulfillment is given by the logical value of the expression.</p>
+<p>By comparing two values, it is possible to create a simple logical expression:</p>
+<pre><code class="language-python">&gt;&gt;&gt; 3 &lt; 5
+True
+&gt;&gt;&gt; 3 &gt; 5
+False
+</code></pre>
+<p>You can also compare text strings. The comparison is then based on alphabetical order (ie on the so-called <em>lexicographic ordering</em>), with uppercase letters having priority over lowercase ones:</p>
+<pre><code class="language-python">&gt;&gt;&gt; &quot;hello&quot; &lt; &quot;world&quot;
+True
+&gt;&gt;&gt; &quot;Hello&quot; &lt; &quot;HELLO&quot;
+False
+</code></pre>
+<p>Equality is tested by the <code>==</code> operator (be careful not to confuse it with the <code>=</code> operation, which assigns a value to a variable!):</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = 5
+&gt;&gt;&gt; a == 5
+True
+</code></pre>
+<p>The inequality is tested with either <code>!=</code> or <code>&lt;&gt;</code> operator:</p>
+<pre><code class="language-python">&gt;&gt;&gt; a != 5
+False
+&gt;&gt;&gt; a &lt;&gt; 3
+True
+</code></pre>
+<p>The <code>is</code> comparison operator is a bit more complicated. For numbers and strings, it tests equality in the same way as <code>==</code>, but for more complex objects, such as lists, it tests the identity of the objects (ie, whether they are the same object with the same address in memory):</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = 3
+&gt;&gt;&gt; b = 3
+&gt;&gt;&gt; a is b
+True
+&gt;&gt;&gt; a = [1,2,3]
+&gt;&gt;&gt; b = [1,2,3]
+&gt;&gt;&gt; a is b
+False
+&gt;&gt;&gt; a = b
+&gt;&gt;&gt; a is b
+True
+</code></pre>
+<p>The opposite of <code>is</code> is the <code>is not</code> operator.</p>
+<p>The <code>in</code> operator tests whether a certain element is in a given list or a certain character in a given string:</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = [1,2,3]
+&gt;&gt;&gt; 2 in a
+True
+&gt;&gt;&gt; &quot;o&quot; in &quot;hello&quot;
+True
+</code></pre>
+<p>Its opposite is <code>not in</code>:</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = [1,2,3]
+&gt;&gt;&gt; 4 not in a
+True
+&gt;&gt;&gt; &quot;z&quot; not in &quot;hello&quot;
+True
+</code></pre>
+<p>Compound logical statements can be created from simple ones using the so-called <em>logical operators</em> <code>and</code>, <code>or</code> and <code>not</code> (we are talking about so-called <em>logical operations</em> with logical expressions). The meaning of these operators is generally known from basic courses on logic, so we will limit the interpretation to a small example. E.g. if we want to test whether a value of a numeric variable is contained in a certain list <em>and at the same time</em> whether it is greater than 3, this can be done using the <code>and</code> operator:</p>
+<pre><code class="language-python">&gt;&gt;&gt; mylist = [1,2,3,4]
+&gt;&gt;&gt; a = 4
+&gt;&gt;&gt; a in mylist and a &gt; 3
+True
+</code></pre>
+<p>The structure of a compound expression can be arbitrarily complex, containing any number of partial simple and complex expressions. If subexpressions are also compound, the priority of operations can be controlled using parentheses:</p>
+<pre><code class="language-python">&gt;&gt;&gt; a in mylist and (a &gt; 3 or a &lt; -3)
+True
+</code></pre>
+<p>The use of parentheses is governed by the known priority of operations: <code>not</code> is always evaluated first, then <code>and</code>, then <code>or</code>. If we omitted the parentheses in the last example, the meaning of the expression would change (answer: how?).</p>
+<blockquote>
+<p><strong>Task 1.</strong> Enter the following command: <code>s = [1, 4, -10, 6, 13, -2]</code>. Decide in advance about the following expressions, whether they are true or false. Then verify:</p>
+<p><code>s[1] &lt; s[3] or 3 in s and len(s) == s[3]</code></p>
+<p><code>s[1] &lt; s[3] or (3 in s and len(s) == s[3])</code></p>
+<p><code>(s[1] &lt; s[3] or 3 in s) and len(s) == s[3]</code></p>
+<p><code>s[1] &gt; s[3] and 3 not in s or len(s) == s[3]</code></p>
+<p><code>s[1] &gt; s[3] and (3 not in s or len(s) == s[3])</code></p>
+<p><code>(s[1] &gt; s[3] and 3 not in s) or len(s) == s[3]</code></p>
+<p><code>s[1] &gt; s[3] and not (3 not in s or len(s) == s[3])</code></p>
+<p><code>not (s[1] &gt; s[3] and 3 not in s) or len(s) == s[3]</code></p>
+<p><code>s</code></p>
+</blockquote>
+<h2 id="conditional-statements">Conditional statements</h2>
+<p>A statement or command is called <em>conditional</em> if its execution only happens if a certain condition is met. The condition can be any logical expression, and the fulfillment of the condition is given by its logical value. The syntax of conditional statements in Python is very intuitive, as it copies the syntax of the common language: <em>if</em> the condition is met, execute the following command(s):</p>
+<pre><code class="language-python">if condition: command
+</code></pre>
+<p>In case of multiple commands:</p>
+<pre><code class="language-python">if condition:
+    command 1
+    command 2
+    command 3
+    ...
+</code></pre>
+<p>Here we see the block structure of code based on mandatory indentation, something typical and specific for Python langauage. Complying statements are indented one level (= four spaces) to the right of the line with the keyword <code>if</code>. Any statement indented to the level of the word <code>if</code> will no longer be related to the condition, ie it will be executed regardless of its fulfillment or non-fulfillment.</p>
+<p>Let's give an example:</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = 5
+&gt;&gt;&gt; b = 6
+&gt;&gt;&gt; if a &lt; 6: print a
+
+5
+&gt;&gt;&gt; if b &lt; 6: print b
+
+&gt;&gt;&gt; if a &lt; b:
+    print a
+    print b
+    print a, &quot;is less than&quot;, b
+
+5
+6
+5 is less than 6
+</code></pre>
+<blockquote>
+<p>When writing a conditional statement to the Python Shell window, one needs to press the <code>Enter</code> key twice to execute the code. By pressing the <code>Enter</code> key a second time, we tell the interpreter that we have finished writing and the whole block can be interpreted (ie executed). This is why there is always one blank line after the last line of the notation.</p>
+</blockquote>
+<p>In addition to specifying what commands to execute if a condition is met, you can also tell the program what commands to execute if the condition is not met. The syntax is intuitive again: <em>if</em> the condition applies, execute the following command(s), <em>else</em> (meaning "otherwise") execute alternative command(s):</p>
+<pre><code class="language-python">if condition:
+    command 1
+    command 2
+else:
+    command 3
+    command 4
+</code></pre>
+<p>This time we show an example in the form of a script:</p>
+<pre><code class="language-python">a = 5
+b = 6
+if a == b:
+    print(str(a) + &quot; equals &quot; + str(b))
+else:
+    print(str(a) + &quot; does not equal &quot; + str(b))
+</code></pre>
+<p>After running the script, the Python Shell console returns:</p>
+<pre><code class="language-python">5 does not equal 6
+</code></pre>
+<p>It is also often the case that we need to gradually test several different conditions, under each of which corresponding commands should be executed. The structure of the notation is: <em>if</em> condition 1 applies, execute command(s) 1, <em>else if</em> condition 2 applies, execute command(s) 2, <em>else</em> execute command(s) 3. There can be any number of conditions chained in this way, optionally with the final <em>else</em> section at the end, followed by statements executed if none of the previous conditions are met.</p>
+<p>One way to implement the scheme described above is as follows:</p>
+<pre><code class="language-python">a = 5
+b = 6
+if a == b:
+    print a, &quot; equals &quot;, b
+else:
+    if a &lt; b:
+        print a, &quot; is less than &quot;, b
+    else:
+        print a, &quot; is greater than &quot;, b
+</code></pre>
+<p>As can be seen, when concatenating the conditions this way, each further condition is indeted one level deeper. If there is more than few conditions this might result in an unclear and not very nice code. Fortunately, there is an alternative notation in Python that uses the <code>elif</code> keyword, which is actually an abbreviation of <code>else if</code>. The usage is evident from the following example (again, the sequence <code>if</code>-<code>elif</code>-<code>elif</code>-...-<code>elif</code> may or may not end with the <code>else</code> part):</p>
+<pre><code class="language-python">a = 5
+b = 6
+if a == b:
+    print a, &quot; is equal &quot;, b
+elif a &lt; b:
+    print a, &quot; is less than &quot;, b
+else:
+    print a, &quot; is greater than &quot;, b
+</code></pre>
+<blockquote>
+<p><strong>Task 2.</strong> Write a script that decides for given two numbers whether the larger one is divisible by the smaller one.</p>
+</blockquote>
+<h2 id="the-while-loop">The <code>while</code> loop</h2>
+<p>Sometimes we need to execute a command or series of commands repeatedly until a certain condition is occurs (or, conversely, expires). The <em>while</em> loop is used for this. In Python, its syntax is as follows:</p>
+<pre><code class="language-python">while condition:
+    command 1
+    command 2
+    ...
+    command n
+</code></pre>
+<p>As long as the condition is valid, the sequence of commands 1, 2, ..., n will be executed repeatedly. It is important that within these commands sooner or later something happens so that the condition no longer applies. Otherwise, a so-called <em>infinite loop</em> would arise. We would then have to forcibly interrupt the program with the keyboard shortcut <code>Ctrl</code> + <code>C</code>, or as a last resort, use the Windows Task Manager to terminate the task.</p>
+<p>An example of using the <code>while</code> loop is calculation of the factorial of a given natural number, for example 20:</p>
+<pre><code class="language-python">n = 20
+fact = 1
+i = 2
+while i &lt;= n:
+    fact = fact * i
+i = i + 1
+print(fact)
+</code></pre>
+<p>The condition for the continuation of the loop is the validity of the statement <code>i &lt;= n</code>. This statement will certainly cease to be valid once, because in each step the value of the variable <code>i</code> is increased by one unit, so that once it will definitely exceed the value of <code>n</code>. Once this happens, the loop will no longer be executed and the program will continue executing statements (if there are any) written after the loop, ie indented to the level of the word <code>while</code>. In our case, it prints the result to the Python Shell console:</p>
+<pre><code class="language-python">2432902008176640000
+</code></pre>
+<p>Of course, for different values ​​of the variable <code>n</code> we get different results of the factorial.</p>
+<p>The <code>while</code> loop can actually be considered a special kind of conditional statement, because it determines what the program should do if a condition is met. It can even be combined with the <code>else</code> clause, followed by a sequence of statements to be executed if the condition is no longer met (ie after the end of the loop):</p>
+<pre><code class="language-python">while condition:
+    commands 1 to n
+else:
+    commands n + 1 to m
+</code></pre>
+<p>It can be argued that the program will behave in the same way if we write the commands n + 1 to m after the loop to the level of the word <code>while</code> instead of into the <code>else</code> section. This is true and the use of <code>else</code> in the <code>while</code> loop is actually very rare. However, this option is not entirely without purpose, as we will see later when we explore the <code>break</code> and <code>continue</code> commands.</p>
+<blockquote>
+<p><strong>Task 3.</strong> Create a list with a Fibonacci sequence of length 100 using a <code>while</code> loop.</p>
+</blockquote>
+<h2 id="the-for-loop">The <code>for</code> loop</h2>
+<p>We use the <code>for</code> loop wherever we want to iterate over a list and do something with each of its items. The syntax is as follows:</p>
+<pre><code class="language-python">for item in list:
+    command 1 (in which the variable item can be used)
+    command 2 (in which the variable item can be used)
+    ...
+</code></pre>
+<p>E.g. we can easily print individual items of the list:</p>
+<pre><code class="language-python">mylist = [0, &quot;one&quot;, 2, &quot;three&quot;, 4, &quot;five&quot;]
+for i in mylist:
+    print (i)
+</code></pre>
+<p>The result is:</p>
+<pre><code class="language-python">0
+one
+2
+three
+4
+five
+</code></pre>
+<p>The same task could be solved using a <code>while</code> loop:</p>
+<pre><code class="language-python">i = 0
+while i &lt; len(mylist):
+    print mylist[i]
+    i = i + 1
+</code></pre>
+<p>The <code>for</code> cycle can be used wherever we know in advance how long our loop will be (ie how many iteration it will have). If, for example, we want to repeat a sequence of commands 20 times, it is enough to make a list of a given length and go through it using the <code>for</code> cycle. We do not have to use the items of the browsed list in individual commands at all:</p>
+<pre><code class="language-python">for i in [1]*20:
+    print (&quot;I won't interrupt the class with a loud croacking.&quot;)
+</code></pre>
+<p>When executed, it returns:</p>
+<pre><code class="language-python">I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+I won't interrupt the class with a loud croacking.
+</code></pre>
+<p>It is often useful to iterate over a list of integer numbers from one to <em>n</em> (for example up to twenty). The <code>range</code> function can be useful for this:</p>
+<pre><code class="language-python">&gt;&gt;&gt; range(20) # Returns a list of length 20, starting with zero
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+
+&gt;&gt;&gt; range(5, 10) # Returns a list from 5 to 9
+[5, 6, 7, 8, 9]
+
+&gt;&gt;&gt; range(5, 50, 3) # Returns a list from 5 to 49 with step of 3
+[5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47]
+
+&gt;&gt;&gt; range(50, 5, -3) # Returns a list from 50 to 6 with step of -3
+[50, 47, 44, 41, 38, 35, 32, 29, 26, 23, 20, 17, 14, 11, 8]
+</code></pre>
+<p>The above calculation of the factorial could therefore also look like this:</p>
+<pre><code class="language-python">n = 20
+fact = 1
+for i in range(n):
+    fact = fact * i
+print(fact)
+</code></pre>
+<p>The <code>for</code> loop can also be enclosed in square brackets to create a list. The following code creates a list of squares of numbers from 1 to 10:</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = [x**2 for x in range(1,11)]
+&gt;&gt;&gt; a
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre>
+<p>Of course, we could create the same list less briefly:</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = []
+&gt;&gt;&gt; for x in range(1,11): a.append(x**2)
+&gt;&gt;&gt; a
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+</code></pre>
+<p>The first method is obviously more elegant and so it is more often used by experienced programmers.</p>
+<blockquote>
+<p><strong>Task 4.</strong> Create a list with a Fibonacci sequence of length 100 using the <code>for</code> loop.</p>
+</blockquote>
+<h2 id="the-break-andcontinue-commands">The <code>break</code> and<code>continue</code> commands</h2>
+<p>The <code>break</code> and <code>continue</code> commands are used to interrupt a loop if there is a reason to do so. Therefore, they are typically used as part of a conditional statement, as can be seen from the following schematic representation of the syntax of the <code>break</code> command (we state both the version with the <code>while</code> and with the <code>for</code> loop):</p>
+<pre><code class="language-python"># Version with the while loop:
+while condition 1:
+    the first series of commands
+    if condition2:
+        second series of commands
+        break
+    else:
+        the third series of commands
+else:
+    fourth series of commands
+fifth series of commands
+
+# Version with the for loop:
+for item in list:
+    the first series of commands
+    if condition 2:
+        second series of commands
+        break
+    else:
+        the third series of commands
+else:
+    fourth series of commands
+fifth series of commands
+`` `
+
+Note that the first `else` refers to the `if` statement, while the second `else` refers to the `while` or `for` loop.
+
+The `break` statement causes an immediate break in the loop, and if there is (which may not!) also an `else` part related to the cycle, the program continues after it. In our schematic example, this means that as soon as in some step (iteration) of the loop the condition 2 applies, ie the command `break` is executed, the program automatically interrupts the cycle and continues by executing the fifth series of commands. On the other hand, if the condition 2 is never met during the loop, then after the loop the program continues with the fourth series of commands.
+
+An example of using the `break` command with the `for` loop can be a script looking for a specific item (eg number 20) in a list:
+
+```python
+for number in mylist:
+    if number == 20:
+        print (&quot;I just found number 20!&quot;)
+        break
+    else: 
+        print(&quot;Number 20 is not in the list!&quot;)
+</code></pre>
+<p>The <code>continue</code> statement causes only the currently running iteration to be interrupted, and the program continues with the next step (iteration), skipping thus all the commands in the loop that are after the <code>continue</code> statement. It is used less often than the <code>break</code> command, because in most cases its use can be replaced by a suitably chosen conditional command. For this reason, we don't provide an example.</p>
+<h2 id="summary">Summary</h2>
+<h2 id="tasks">Tasks</h2>
+<ol>
+<li>From the sequence created by solving task 3 resp. 4, create a list containing only members divisible by three and determine its length.</li>
+<li>Write a script that for given two lists of lengths <em>m</em> and <em>n</em>, where <em>m</em> &gt; <em>n</em>, creates a new list, the first <em>n</em> elements of which will be formed by the elements of the shorter of the two lists, the rest of the list will be completed with elements of the longer of the two lists. Create a solution that works when you enter any two lists in any order.</li>
+<li>Write a script to compare two numeric lists "item by item". The entry into the program will be any two lists and the type of comparison ("greater than", "less than" or "equals"). The output will be a list of the length of the shorter of the two lists, which on the index <em>i</em> will contain the result of the comparison (<code>True</code>/<code>False</code>) of the respective items of the input lists. E.g. for lists <code>a = [1,2,3]</code> and <code>b = [1,-2,4,5]</code> the "greater than" comparison will result in a list <code>[False, True, False]</code>.</li>
+<li>Write a script that decides whether given two numbers have a common divisor.</li>
+</ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../about_me/" class="btn btn-neutral float-right" title="About me...">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Lesson%2003%20Writing%20and%20running%20Python%20programs/" class="btn btn-neutral" title="Lesson 3: Starting python"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../Lesson%2003%20Writing%20and%20running%20Python%20programs/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../about_me/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

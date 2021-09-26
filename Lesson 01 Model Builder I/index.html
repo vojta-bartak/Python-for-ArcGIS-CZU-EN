@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Vojta Barták">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Lesson 1: Model editting - Python pro ArcGIS</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Lesson 1: Model editting";
+    var mkdocs_page_input_path = "Lesson 01 Model Builder I.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Python pro ArcGIS</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Model Builder</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Lesson 1: Model editting</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#basic-task">Basic task</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#data">Data</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#a-solution-for-a-fixed-district">A. Solution for a fixed district</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#b-solution-for-all-districts">B. Solution for all districts</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#c-solution-with-iteration-over-land-cover-classes">C. Solution with iteration over land cover classes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#exporting-a-model-to-python">Exporting a model to Python</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#exercises">Exercises</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2002%20Model%20Builder%20II/">Lesson 2: User environment</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Python</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2003%20Writing%20and%20running%20Python%20programs/">Lesson 3: Starting python</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lesson 04 Variables and data types">Lesson 4: Variables and data types</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2005%20Conditions%20and%20Loops/">Lesson 5: Loops and conditions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 6 Interaktivní vstupy do programu a náhodná čísla.md">Lekce 6: Vstupy a náhodná čísla</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 7 Práce s adresářovou strukturou a s textovými soubory.md">Lekce 7: Adresáře a textové soubory</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 8 Funkce a moduly.md">Lekce 8: Funkce a moduly</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 9 Třídy a objekty.md">Lekce 9: Třídy a objekty</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">ArcPy</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Lekce 10 Spouštění nástrojů ArcGIS pomocí balíčku ArcPy.md">Lekce 10: Spouštění nástrojů</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 11 Procházení geodat a jejich vlastností pomocí balíčku ArcPy.md">Lekce 11: Procházení a prohlížení geodat</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 12 Uživatelská rozhraní nástrojů.md">Lekce 12: Uživatelská rozhraní</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 15 Procházení tabulek pomocí kurzorů.md">Lekce 15: Kurzory</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 18 Rastrové analýzy.md">Lekce 18: Rastrové analýzy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about_me/">About me...</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Python pro ArcGIS</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Model Builder &raquo;</li>
+        
+      
+    
+    <li>Lesson 1: Model editting</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/edit/master/docs/Lesson 01 Model Builder I.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="lesson-1-graphical-programming-with-model-builder">Lesson 1: Graphical programming with Model Builder</h1>
+<p><em>(c) Vojtěch Barták, FŽP CULS Prague, 2020/2021</em></p>
+<p>This lesson focuses on deepening skills with automating spatial tasks using the built-in ArcGIS <em>Model Builder</em> application. Using a simple graphical chaining of tools and layers, this application provides us with a painless introduction to programming thinking. The lesson is immediately followed by lesson 2, in which you learn to create a user interface for your model. We will not use Model Builder in the next lessons, as we will replace it with a much more powerful tool: the Python programming language.</p>
+<p>The lesson assumes knowledge of the basics of GIS and the ArcGIS environment at the level of GIS 1 and GIS 2 subjects, including basic control of the Model Builder application. (If you don't meet any of the above, don't despair, you may find that you attain the necessary knowledge yourself.)</p>
+<div class="toc">
+<ul>
+<li><a href="#lesson-1-graphical-programming-with-model-builder">Lesson 1: Graphical programming with Model Builder</a><ul>
+<li><a href="#basic-task">Basic task</a></li>
+<li><a href="#data">Data</a></li>
+<li><a href="#a-solution-for-a-fixed-district">A. Solution for a fixed district</a></li>
+<li><a href="#b-solution-for-all-districts">B. Solution for all districts</a></li>
+<li><a href="#c-solution-with-iteration-over-land-cover-classes">C. Solution with iteration over land cover classes</a></li>
+<li><a href="#exporting-a-model-to-python">Exporting a model to Python</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#exercises">Exercises</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="basic-task">Basic task</h2>
+<p>We want to know what is the percentage of forests (or other classes of land cover) in the 300 m zone around the railway tracks. We will perform the analysis:</p>
+<ol>
+<li>for a fixed district.</li>
+<li>for all districts.</li>
+<li>for all districts and all classes of land cover.</li>
+</ol>
+<p>We want the output in the form of a table in which each analyzed district will correspond to one row.</p>
+<h2 id="data">Data</h2>
+<p>We will use freely downloadable data from the following sources:</p>
+<ul>
+<li><a href="https://www.arcdata.cz/produkty/geograficka-data/arccr-500">ArcČR 500</a></li>
+<li><a href="https://land.copernicus.eu/pan-european/corine-land-cover/lcc-2012-2018">Corine Land Cover 2018</a></li>
+</ul>
+<p>From the ArcČR 500 geodatabase we will need the element classes "Zeleznice" (i.e., "Railways") and "Okresy - polygony" (i.e., "Districts - polygons"). They are in the S-JTSK Křovák East-North coordinate system (EPSG: 5514).</p>
+<p><img alt="" src="../images/image-20200917143410267.png" /></p>
+<p>The data <a href="https://land.copernicus.eu/pan-european/corine-land-cover/lcc-2012-2018">Corine Land Cover</a> represent the land cover for the territory of Europe in the ETRS 1989 LAEA coordinate system (EPSG: 3035). This data is distributed in both raster (GeoTiff) and vector (Esri File Geodatabase) form. We will work with the raster.</p>
+<p><img alt="" src="../images/data_all.png" /></p>
+<p>Before we start the analysis, we need to:</p>
+<ul>
+<li><strong>Unify coordinate systems</strong> Due to the fact that the transformation of vector data is generally easier and less "lossy" than the transformation of raster data, we transfer layers from ArcCR 500 to the ETRS system (<em>Project</em> tool).</li>
+<li><strong>Clip the raster of land cover to only include the Czech Republic</strong> We can use the <em>Clip</em> tool (attention: we mean the tool from the Data Management Tools -&gt; Raster -&gt; Raster Processing, not the tool of the same name from the Analysis Tools -&gt; Extract set) and polygons of districts created by the transformation in the previous step.</li>
+<li><strong>Reclassify the land cover raster into basic categories</strong>. As is well known, the Corine Land Cover is coded with three-digit codes, the first digit expressing the basic categories, the second digit the more detailed categorization, and the third digit the most detailed one. We will work with the basic categories: 1 - urban areas, 2 - agricultural areas, 3 - forests, 4 - wetlands, and 5 - water bodies. So we need a raster that will only have these five values ​​instead of three-digit codes (<em>Reclassify</em> tool).</li>
+</ul>
+<p>If you do not want to deal with downloading and editing data or you do not know how to do it, you can download the prepared data <a href="https://owncloud.cesnet.cz/index.php/s/FCqiKR1zvimaIDz">here</a>.</p>
+<h2 id="a-solution-for-a-fixed-district">A. Solution for a fixed district</h2>
+<p>Let's say we want to solve the problem for the Jindřichův Hradec district. There are several possible solutions, one of which can be the following:</p>
+<ol>
+<li>Select the polygon of the Jindřichův Hradec district.</li>
+<li>Clip the layer of railway tracks with the selected polygon.</li>
+<li>Create a buffer zone with a radius of 300 m around the tracks.</li>
+<li>Using zonal map algebra, calculate the (relative) area of ​​forests.</li>
+</ol>
+<p>(Step 4 might seem a bit mysterious, we'll discuss it in detail later.)</p>
+<p>If we solved the task by running individual tools and not using a model, then we would select the district manually with the <em>Select Features</em> tool. When subsequently clipping with the <em>Clip</em> tool, it would then be sufficient to use the district layer as the clipping layer, in which a selection would be made. How to solve the selection in the model?</p>
+<p>We have two options. The first is to use the <em>Select</em> tool (ArcToolbox -&gt; Analysis Tools -&gt; Extract), which applies an SQL query to the layer and creates a new dataset from the selected features.</p>
+<p><img alt="" src="../images/Select.png" /></p>
+<p>The second option is to use the <em>Make Feature Layer</em> tool (ArcToolbox -&gt; Data Management Tools -&gt; Layers and Table Views). It does not create a new dataset (as was the case with the <em>Select</em> tool), but only a layer. (A layer is a temporary representation of a dataset that is not stored on the hard disk, but exists only in the computer's operating memory and is automatically deleted after the model run. It can be used as input to other tools within the model and can contain a selection. One can create any number of layers from a given dataset, each of which can contain a different selection of features.)</p>
+<p>As with the <em>Select</em> tool, with the <em>Make Feature Layer</em> tool, attribute selection can be specified using the <em>Expression</em> parameter, into which an SQL query can be written:</p>
+<p><img alt="" src="../images/Make_FL.png" /></p>
+<p>Since the second of these options (<em>Make Feature Layer</em>) does not require new data to be written to the hard disk, we will naturally prefer it.</p>
+<p>Clipping railway tracks with a selected polygon with the <em>Clip</em> tool and creating a 300 m buffer zone with the <em>Buffer</em> tool are trivial tasks that we will not discuss in detail. However, for the <em>Buffer</em> tool, it is worth mentioning the correct setting of the <em>Dissolve Type</em> parameter: since we want to perform the analysis for all sections of the railway lines together, it is necessary to set this parameter to the value "ALL". The resulting buffer zones around the individual sections are thus merged into a single (multi)polygon.</p>
+<p><img alt="" src="../images/model1_buffer.png" /></p>
+<p>If we run the model (we remind you to save it first, not in a folder, but in a toolbox), we should get something like this (we remind you that the results from the model need to be added to ArcMap manually):</p>
+<p><img alt="" src="../images/buffer_zeleznice300.png" /></p>
+<blockquote>
+<p>Verify that you have set the <em>Dissolve Type</em> parameter in the <em>Buffer</em> tool correctly. You should only see one row in the attribute table of the resulting polygon layer.</p>
+</blockquote>
+<p>Now the last step remains, "using zonal map algebra, calculate the relative area of ​​forests". Again, several possible solutions exist. We will show the one that is particularly effective if we want to calculate the <em>relative</em> area (i.e., the percentage of the area relative to the total area, here the percentage of the forest area relative to the total area of ​​the buffer zone). It consists of two steps:</p>
+<ol>
+<li>Create a logical raster (i.e., a raster with values ​​0/1) representing forests (1 ... forest, 0 ... other land cover types).</li>
+<li>Use the <em>Zonal Statistics as Table</em> tool (ArcToolbox -&gt; Spatial Analyst -&gt; Zonal) to calculate the average from the above raster in the buffer zone. (Note that the average of zeros and ones in the buffer zone gives the relative proportion of ones, i.e., the relative area of ​​forests on a scale of 0, 1. We then get the relative area in percentage simply by multiplying by 100.)</li>
+</ol>
+<p>The first of these steps can be implemented, for instance, by reclassification (ArcToolbox -&gt; Spatial Analyst -&gt; Reclass -&gt; <em>Reclassify</em>) or with the <em>Equal To</em> tool (ArcToolbox -&gt; Spatial Analyst -&gt; Math -&gt; Logical). The latter option is simpler, so we will use it. In the land cover raster, forests are represented by a value of 3, so the raster will be compared with the value 3 by the <em>Equal To</em> tool:</p>
+<p><img alt="" src="../images/image-20200917204602513.png" /></p>
+<p>The resulting model might look like this:</p>
+<p><img alt="" src="../images/model1_final_zonal.png" /></p>
+<p>After saving and running the model, we receive the resulting DBF table, which shows that the percentage of forests in the 300 m zone around the railways in the district of Jindřichův Hradec is about 30%:</p>
+<p><img alt="" src="../images/image-20200917211249427.png" /></p>
+<h2 id="b-solution-for-all-districts">B. Solution for all districts</h2>
+<p>If we want to solve the same task for all districts, there is no need to initially select a district with the <em>Make Feature Layer</em> tool and clip railway tracks with it. However, in order to distinguish which parts of the lines belong to which districts, we must calculate the intersection of the two layers with the <em>Intersect</em> tool. The resulting layer will contain sections of lines cut by the boundaries of districts, and the attributes of these sections will also contain information to which district which section belongs.</p>
+<p>If you then set the <em>Dissolve Type</em> parameter to "LIST" in the <em>Buffer</em> tool, and choose the field with district names ("NAZ_LAU1") in the list of <em>Dissolve Fields</em>, the result will be one (multi)polygon for each district. We then use the layer of these polygons (buffer zones) as <em>Input Zone Data</em> in the <em>Zonal Statistics As Table</em> tool.</p>
+<p>Resulting model:</p>
+<p><img alt="" src="../images/model2_final.png" /></p>
+<p>and the result:</p>
+<p><img alt="" src="../images/image-20200917212701242.png" /></p>
+<p>We immediately see that the highest proportion of forests around the tracks is the district of Prachatice, 51%.</p>
+<h2 id="c-solution-with-iteration-over-land-cover-classes">C. Solution with iteration over land cover classes</h2>
+<p>If we want to perform our analysis for all classes of land cover, we have two options:</p>
+<ul>
+<li>apply solution B in a loop through individual land cover classes,</li>
+<li>modify solution B so that the analysis is performed for all land cover classes at once.</li>
+</ul>
+<p>The second solution is undoubtedly more effective (see <a href="# tasks]">task 1</a> at the end of the lesson), for example, because it is not necessary to repeat the intersecting and buffering in each round of the cycle. However, since our goal is to show the use of an iterator in a model, we turn to the first method here. The advantage is that it only requires a small modification of the model created in solution B.</p>
+<p>In order to have a procedure performed repeatedly (i.e., in a loop), it is necessary to insert the so-called <em>iterator</em> into the model. Because we want to iterate over values ​​of a discrete raster, we use an iterator passing through values ​​of a given field of an attribute table (Insert -&gt; Iterators -&gt; Field Value).</p>
+<p><img alt="" src="../images/model3_iterator2.png" /></p>
+<p>The picture shows the correct connection of the iterator to the model. The iterator has the following parameters:</p>
+<ul>
+<li><em>Input Table</em>: input table to be passed through in the loop. In our case, it is the attribute table of the Corine Land Cover raster, so we set the value of the parameter to this raster. (You probably did this manually by connecting the raster and the iterator with an arrow.)</li>
+<li><em>Field</em>: the field whose values we want to loop through. In our case, it is the Value field, containing the raster values.</li>
+<li><em>Data Type</em>. The iterator loops through the field line-by-line, and in each iteration, it returns the corresponding value of this field. The <em>Data Type</em> parameter controls the data type of the returned value. It depends mainly on what we want to do with that value further in the model. In our case, the output value from the iterator will be used in the <em>Equal To</em> tool as a constant against which to compare the Corine Land Cover raster. The corresponding data type will therefore be one of the numerical types, i.e., "Double" or (in case of discrete rasters) "Long".</li>
+<li><em>Unique Values​​</em>. If this box is checked, only unique values ​​of the field are looped through (i.e., no value is repeated). If not checked, the entire table is looped through line by line. Of course, we only want to go through unique values in our case.</li>
+<li><em>Skip Null Values​​</em>. If you know that the field contains some values ​​that should be omitted when looping, check this box and specify these values ​​with the <em>Null Value</em> parameter.</li>
+</ul>
+<p>If we ran the model in this way, the calculation would probably have been carried out without any problems, but the result would only be a single table corresponding to the last processed land cover class. This is because in each iteration, the calculation ends with the creation of a table with the <em>Zonal Statistics as Table</em> tool, which always names the output table in the same way. If we have ArcMap enabled to overwrite existing datasets, then the new table will overwrite the table created in the previous iteration. (If you don't have permission to overwrite existing data, you'll even get an error message.)</p>
+<p>How to get out of it? The solution is to use the value returned by the iterator as a part of the output table name. For example, if we select <code>&lt;base base&gt; _ &lt;land cover code&gt;.dbf</code> as the output name structure, the output tables can be named <code>Coverage_1.dbf</code>, <code>Coverage_2.dbf</code>, etc.</p>
+<p>A reference to a model variable (variables in the model are all entities represented by ovals) in the name of an output dataset can be created using the <code>%</code> character before and after the variable name. The practice will be clear from the example in the following figure, where the name of the variable "Value" (i.e., the variable representing the value returned by the iterator) is incorporated into the name of the output table. The table name is therefore written as <code>Coverage_%Value%.dbf</code>, and in each iteration, the <code>%Value%</code> part is replaced by the current value of the Value variable.</p>
+<p><img alt="" src="../images/model3_zonal.png" /></p>
+<p>Now all you have to do is run the model and view the resulting tables.</p>
+<p>(If you thought it would be great not to have the output in five different tables, but to only create one table with individual land cover classes in columns, look at the Tasks 1 and 2 at the end of the lesson. Task 1 should make you satisfied. Task 2, on the other hand, can prove quite difficult, but don't worry if you can't accomplish it: once you learn to write scripts in Python instead of building models, everything will be much easier!)</p>
+<h2 id="exporting-a-model-to-python">Exporting a model to Python</h2>
+<p>The created model can be easily exported to a Python script:</p>
+<p><img alt="" src="../images/image-20200918163344664.png" /></p>
+<p>This saves a file with a .py extension. It is an ordinary text file which, when opened in a notepad, looks like this:</p>
+<pre><code># -*- coding: utf-8 -*-
+# ---------------------------------------------------------------------------
+# exported_model.py
+# Created on: 2020-09-18 16:35:39.00000
+#   (generated by ArcGIS/ModelBuilder)
+# Description: 
+# ---------------------------------------------------------------------------
+
+# Import arcpy module
+import arcpy
+
+# Load required toolboxes
+arcpy.ImportToolbox(&quot;Model Functions&quot;)
+
+
+# Local variables:
+districts = &quot;okresy&quot;
+railways = &quot;zeleznice&quot;
+districts_railways_Intersect = &quot;C:\\Users\\vojta\\Documents\\ArcGIS\\Default.gdb\\districts_Intersect&quot;
+buffers = &quot;C:\\Users\\vojta\\Documents\\ArcGIS\\Default.gdb\\districts_Intersect_Buffer&quot;
+CLC_2018_tif = &quot;CLC_2018.tif&quot;
+Value = CLC_2018_tif
+Forests__0_1_ = &quot;C:\\Users\\vojta\\Documents\\ArcGIS\\Default.gdb\\EqualTo_tif1&quot;
+coverage__Value__dbf = &quot;C:\\my_path\\Coverage_%Value%.dbf&quot;
+
+# Process: Intersect
+arcpy.Intersect_analysis(&quot;districts #;railways #&quot;, districts_railways_Intersect, &quot;ALL&quot;, &quot;&quot;, &quot;INPUT&quot;)
+
+# Process: Buffer
+arcpy.Buffer_analysis(districts_railways_Intersect, buffers, &quot;300 Meters&quot;, &quot;RIGHT&quot;, &quot;ROUND&quot;, &quot;LIST&quot;, &quot;NAZ_LAU1&quot;, &quot;PLANAR&quot;)
+
+# Process: Iterate Field Values
+arcpy.IterateFieldValues_mb(CLC_2018_tif, &quot;Value&quot;, &quot;Double&quot;, &quot;true&quot;, &quot;false&quot;, &quot;0&quot;)
+
+# Process: Equal To
+arcpy.gp.EqualTo_sa(CLC_2018_tif, Value, Forests__0_1_)
+
+# Process: Zonal Statistics as Table
+arcpy.gp.ZonalStatisticsAsTable_sa(buffers, &quot;NAZ_LAU1&quot;, Forests__0_1_, coverage__Value__dbf, &quot;NODATA&quot;, &quot;MEAN&quot;)
+</code></pre>
+<p>It is not the purpose here to explain everything that is written in the script. This is just a brief example of what you will learn to write yourself in this course. So with gusto!</p>
+<h2 id="summary">Summary</h2>
+<p>In this lesson you have <strong>repeated</strong>:</p>
+<ul>
+<li>
+<p>several vector (Clip, Buffer, Intersect) and several raster (Equal To, Zonal Statistics as Table) analysis tools,</p>
+</li>
+<li>
+<p>how to use Model Builder to chain tools in a workflow when designing a solution of a complex problem.</p>
+</li>
+</ul>
+<p>Newly <strong>learned</strong>:</p>
+<ul>
+<li>how to select features in the model without having to write the selected features to a new dataset on disk (Make Feature Layer tool),</li>
+<li>how to use an iterator in the model (with iterating over field values),</li>
+<li>how to export a model to a Python script.</li>
+</ul>
+<h2 id="exercises">Exercises</h2>
+<ol>
+<li>Modify the solution C to avoid use of an iterator. (Hint: You may want to use the <em>Tabulate Area</em> tool.)</li>
+<li>Modify the solution C so that the output is only one table, whose columns would correspond to the individual land cover classes. However, leave the iterator in the model. (Hint: explore the tools in the toolsets Fields and Joins of the Data Management Tools toolbox.)</li>
+<li>Modify solutions A, B or C (or all) to use <em>vector</em> Corine Land Cover data (download <a href="https://land.copernicus.eu/pan-european/corine- land-cover / lcc-2012-2018">here</a>). (Hint: You may want to use the <em>Tabulate Intersection</em> tool.)</li>
+</ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Lesson%2002%20Model%20Builder%20II/" class="btn btn-neutral float-right" title="Lesson 2: User environment">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Lesson%2002%20Model%20Builder%20II/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
