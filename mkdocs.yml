@@ -1,7 +1,7 @@
 site_name: Python pro ArcGIS
 site_author: Vojta Barták
-repo_url: https://github.com/vojta-bartak/Python-for-ArcGIS-CZU
-theme: windmill
+repo_url: https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN
+theme: readthedocs
 plugins: []
 nav:
     - Home: index.md
