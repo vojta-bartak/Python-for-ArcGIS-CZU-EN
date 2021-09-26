@@ -1,0 +1,25 @@
+site_name: Python pro ArcGIS
+site_author: Vojta Barták
+repo_url: https://github.com/vojta-bartak/Python-for-ArcGIS-CZU
+theme: windmill
+plugins: []
+nav:
+    - Home: index.md
+    - Model Builder: 
+        - 'Lesson 1: Model editting': 'Lesson 01 Model Builder I.md'
+        - 'Lesson 2: User environment': 'Lesson 02 Model Builder II.md'
+    - Python:
+        - 'Lesson 3: Starting python': 'Lesson 03 Writing and running Python programs.md'
+        - 'Lesson 4: Variables and data types': 'Lesson 04 Variables and data types'
+        - 'Lesson 5: Loops and conditions': 'Lesson 05 Conditions and Loops.md'
+        - 'Lekce 6: Vstupy a náhodná čísla': 'Lekce 6 Interaktivní vstupy do programu a náhodná čísla.md'
+        - 'Lekce 7: Adresáře a textové soubory': 'Lekce 7 Práce s adresářovou strukturou a s textovými soubory.md'
+        - 'Lekce 8: Funkce a moduly': 'Lekce 8 Funkce a moduly.md'
+        - 'Lekce 9: Třídy a objekty': 'Lekce 9 Třídy a objekty.md'
+    - ArcPy:
+        - 'Lekce 10: Spouštění nástrojů': 'Lekce 10 Spouštění nástrojů ArcGIS pomocí balíčku ArcPy.md'
+        - 'Lekce 11: Procházení a prohlížení geodat': 'Lekce 11 Procházení geodat a jejich vlastností pomocí balíčku ArcPy.md'
+        - 'Lekce 12: Uživatelská rozhraní': 'Lekce 12 Uživatelská rozhraní nástrojů.md'
+        - 'Lekce 15: Kurzory': 'Lekce 15 Procházení tabulek pomocí kurzorů.md'
+        - 'Lekce 18: Rastrové analýzy': 'Lekce 18 Rastrové analýzy.md'
+    - About me...: about_me.md
