@@ -39,7 +39,6 @@ Before we start the analysis, we need to:
 - **Clip the raster of land cover to only include the Czech Republic** We can use the *Clip* tool (attention: we mean the tool from the Data Management Tools -> Raster -> Raster Processing, not the tool of the same name from the Analysis Tools -> Extract set) and polygons of districts created by the transformation in the previous step.
 - **Reclassify the land cover raster into basic categories**. As is well known, the Corine Land Cover is coded with three-digit codes, the first digit expressing the basic categories, the second digit the more detailed categorization, and the third digit the most detailed one. We will work with the basic categories: 1 - urban areas, 2 - agricultural areas, 3 - forests, 4 - wetlands, and 5 - water bodies. So we need a raster that will only have these five values ​​instead of three-digit codes (*Reclassify* tool).
 
-If you do not want to deal with downloading and editing data or you do not know how to do it, you can download the prepared data [here](https://owncloud.cesnet.cz/index.php/s/FCqiKR1zvimaIDz).
 
 ## A. Solution for a fixed district
 
