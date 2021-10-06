@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Vojta Barták">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Lesson 7: Directories and text files - Python for ArcGIS</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Lesson 7: Directories and text files";
+    var mkdocs_page_input_path = "Lesson 07 Directories and text files.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Python for ArcGIS</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Model Builder</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2001%20Model%20Builder%20I/">Lesson 1: Model editting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2002%20Model%20Builder%20II/">Lesson 2: User environment</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Python</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2003%20Writing%20and%20running%20Python%20programs/">Lesson 3: Starting python</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lesson 04 Variables and data types">Lesson 4: Variables and data types</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2005%20Conditions%20and%20Loops/">Lesson 5: Loops and conditions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2006%20Interactive%20inputs%20and%20random%20numbers/">Lesson 6: Inputs and random numbers</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Lesson 7: Directories and text files</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#writing-directory-paths">Writing directory paths</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#os-module">os module</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ospath-module">os.path module</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#split-a-string-with-a-character">Split a string with a character</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reading-text-files">Reading text files</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#writing-text-files">Writing text files</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tasks">Tasks</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 8 Funkce a moduly.md">Lekce 8: Funkce a moduly</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 9 Třídy a objekty.md">Lekce 9: Třídy a objekty</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">ArcPy</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Lekce 10 Spouštění nástrojů ArcGIS pomocí balíčku ArcPy.md">Lekce 10: Spouštění nástrojů</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 11 Procházení geodat a jejich vlastností pomocí balíčku ArcPy.md">Lekce 11: Procházení a prohlížení geodat</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 12 Uživatelská rozhraní nástrojů.md">Lekce 12: Uživatelská rozhraní</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 15 Procházení tabulek pomocí kurzorů.md">Lekce 15: Kurzory</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 18 Rastrové analýzy.md">Lekce 18: Rastrové analýzy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about_me/">About me...</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Python for ArcGIS</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Python &raquo;</li>
+        
+      
+    
+    <li>Lesson 7: Directories and text files</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/edit/master/docs/Lesson 07 Directories and text files.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="lesson-7-working-with-directories-and-text-files">Lesson 7: Working with directories and text files</h1>
+<p>In this lesson, we will discuss how to handle the computer's directory structure in Python (setting up a working directory, creating directory paths, creating and deleting directories, etc.) and how to read and write text files. At the same time, we will show some additional tricks for working with text strings.</p>
+<h2 id="writing-directory-paths">Writing directory paths</h2>
+<p>In Python, the default way to write a directory path is the classic backslash style, such as <code>C:\MyFolder\my_file.txt</code>. The problem is that the backslash, as we know, has a special meaning in Python text strings (it introduces the <em>escape</em> sequence). There are three ways to work around this:</p>
+<ol>
+<li>In the path notation, use forward slashes: <code>"C:/My_Folder/my_file.txt"</code>. Python can handle that.</li>
+<li>Use the escape sequence <code>\\</code>, ie double backslashes: <code>"C:\\MyFolder\\my_file.txt"</code>. Both described methods are certainly advantageous if we want to list the routes manually. However, we often copy the path from a browser (or from another code) and then paste it into our code. Such paths tend to have backslashes, and their subsequent editing (replacement with forward or double backslashes) is lengthy and impractical. In this case, the third method is handy:</li>
+<li>Before the text string, write <code>r</code> to create a "raw" string, all characters of which are interpreted as they are (ie the string does not contain any escape sequences): <code>r"C:\My_folder\my_file.txt"</code>.</li>
+</ol>
+<p>An overview of all three methods:</p>
+<pre><code class="language-python"># Forward slashes
+path = &quot;C:/my_folder/my_file.txt&quot;
+
+# Double backslashes
+path = &quot;C:\\my_folder\\my_file.txt&quot;
+
+# Raw string
+path = r&quot;C:\my_folder\my_file.txt&quot;
+</code></pre>
+<h2 id="os-module"><code>os</code> module</h2>
+<p>The module name is an abbreviation of the words "operating system". The module is designed for directory and process management. Of the many functions of the module, some of them will be especially useful for directory management. The <code>my_path</code> parameter has the meaning of a text string with a folder or file address in all examples.</p>
+<p>Load the module in the standard way:</p>
+<pre><code class="language-python">import os
+</code></pre>
+<p>For operations with a directory structure, it is advantageous to have the so-called "workspace direcory" set correctly. If it is set, we do not have to enter the full path to files, for example, when entering input files into a calculation - if the input file is in the working directory, the Python interpreter will look for it there. Also, any output files, unless we specify the full path where they are to be saved, will be saved in the working directory. The default working directory setting depends on how we started IDLE:</p>
+<ul>
+<li>
+<p>When opening an IDLE program in the standard way from the program menu, the working directory is set to the default position, typically <code>'C:\\WINDOWS\\system32'</code>. (For example, if we now want to open a script by pressing <code>Ctrl</code> + <code>O</code>, the search window will open in this location.)</p>
+</li>
+<li>
+<p>When opening the IDLE program "from a script", ie by opening the script for editing in the IDLE program, the working directory is automatically set to the folder with this script.</p>
+</li>
+</ul>
+<p>To find out the current working directory, use the <code>getcwd()</code> function (an aberviation of "current workspace directory"):</p>
+<pre><code class="language-python">&gt;&gt;&gt; os.getcwd ()
+'C:\\Documents and Settings\\MyComputer'
+</code></pre>
+<p>If, on the other hand, we want to change the working directory, we use the function <code>chdir(my_path)</code> (from "change directory"). Attention: the appropriate <code>my_path</code> location must exist!</p>
+<pre><code class="language-python">&gt;&gt;&gt; os.chdir(&quot;C:/my_folder&quot;)
+&gt;&gt;&gt; os.getcwd()
+'C:\\my_folder'
+</code></pre>
+<p>Often we want to perform some calculation in a cycle for all files in a folder, or for all folders in a parent folder. To get a list of items inside a folder, we use the <code>listdir(my_path)</code> function. The output list is a list of item names (ie strings), including suffixes (in an alphabetical order):</p>
+<pre><code class="language-python">&gt;&gt;&gt; os.listdir(&quot;C:/my_folder&quot;)
+['first_file.xls', 'last_file.txt', 'next_file.doc']
+</code></pre>
+<p>We often need to refer to the current working directory in similar functions (eg list its contents). This is possible with the already mentioned function <code>getcwd</code>:</p>
+<pre><code class="language-python">&gt;&gt;&gt; os.listdir(getcwd())
+['first_file.xls', 'last_file.txt', 'next_file.doc']
+</code></pre>
+<p>But there is an easier way. In Python, you can refer to the working directory by the abbreviation <code>"."</code>:</p>
+<pre><code class="language-python">&gt;&gt;&gt; os.listdir(&quot;.&quot;)
+['first_file.xls', 'last_file.txt', 'next_file.doc']
+</code></pre>
+<blockquote>
+<p><strong>Task 1.</strong> Change your working directory to a folder in which you have a large number of files of different types. Then write its contents on the console.</p>
+</blockquote>
+<p>The other two functions that we will show are used to create new directories. The first, the <code>mkdir(my_path)</code> function, creates a new folder at the specified address. The condition is that the entire path except the end folder being created exists. This condition is bypassed by a second function, <code>makedirs(my_path)</code>, which creates a new folder at the specified address, including any non-existent parent folders.</p>
+<pre><code class="language-python">&gt;&gt;&gt; os.mkdir (&quot;C:/existing_parent_folder/new_folder&quot;)
+&gt;&gt;&gt; os.makedirs (&quot;C:/new_parent_folder/new_folder&quot;)
+</code></pre>
+<p>If, on the other hand, we want to delete a folder or file, we have the following functions available:</p>
+<pre><code class="language-python"># Delete a file
+&gt;&gt;&gt; os.remove(&quot;C:/my_folder/my_file.doc&quot;)
+
+# Delete an (empty!) folders
+&gt;&gt;&gt; os.rmdir(&quot;C:/empty_folder&quot;)
+
+# Delete an (empty!) folder, including all (empty!) parent folders
+&gt;&gt;&gt; os.removedirs (&quot;C:/empty_parent_folder/empty_folder&quot;)
+</code></pre>
+<p>The <code>rename(old, new)</code> and <code>renames(old_path, new_path)</code> functions are also useful, which can be used to rename file paths, thus not only renaming them, but also moving files to new locations. The first, <code>rename</code>, renames the target file from the old path to the new one, but the folder for the new file location must already exist. The second function, <code>renames</code>, does not require this and first creates the necessary non-existent folders in the new path (and at the same time removes the unnecessary folders of the original path).</p>
+<pre><code class="language-python"># Rename a file
+os.listdir(&quot;C:/my_folder&quot;)
+['first_file.xls', 'last_file.txt', 'next_file.doc']
+os.rename(&quot;C:/my_folder/first_file.doc&quot;, &quot;C:/my_folder/first_superfile.doc&quot;)
+os.listdir(&quot;C:/my_folder&quot;)
+['first_superfile.xls', 'last_file.txt', 'next_file.doc']
+
+# Move a file
+os.renames(&quot;C:/my_folder/next_file.doc&quot;, &quot;C:/new_folder/moved_file.doc&quot;)
+</code></pre>
+<blockquote>
+<p><strong>Task 2.</strong> Save all text files (or files of another specific type) from your working directory to a newly created subfolder "<code>text_files</code>". Use a loop and an <code>if</code> condition.</p>
+</blockquote>
+<h2 id="ospath-module"><code>os.path</code> module</h2>
+<p>The <code>os.path</code> module is a submodule of the <code>os</code> module, containing functions for working with the directory paths themselves. After loading the <code>os</code> module, the functions of the submodule are accessible via <code>os.path.some_function()</code>, but the submodule can also be loaded separately (then other functions from the <code>os</code> module will not be accessible):</p>
+<pre><code class="language-python">import os.path
+</code></pre>
+<p>eventual:</p>
+<pre><code class="language-python">from os import path
+</code></pre>
+<p>In the latter case, the submodule functions will be available via <code>path.any_function()</code>.</p>
+<p>From the content of the <code>os.path</code> submodule, we select only some functions that are potentially useful to us.</p>
+<p>The <code>basename(my_path)</code> function returns the last element of the <code>my_path</code> path name, ie if it is a file address, it returns the file name, if it is a folder, it returns the folder name:</p>
+<pre><code class="language-python">&gt;&gt;&gt; os.path.basename(&quot;C:/my_folder/my_file.xls&quot;)
+'my_file.xls'
+&gt;&gt;&gt; os.path.basename(&quot;C:/my_folder&quot;)
+'my_folder'
+</code></pre>
+<p>The <code>dirname(my_path)</code> function returns the parent folder of the last path element:</p>
+<pre><code class="language-python">&gt;&gt;&gt; os.path.dirname(&quot;C:/my_folder/my_file.xls&quot;)
+'C:/my_folder'
+&gt;&gt;&gt; os.path.dirname(&quot;C:/my_file&quot;)
+'C:/'
+</code></pre>
+<p>We often need to compose a path from its individual parts, eg <code>C:\main_folder</code>, <code>other_folder</code> and <code>filename.xls</code>, which we have stored separately in some variables. We can do this either manually:</p>
+<pre><code class="language-python">a = &quot;C:/main_folder&quot;
+b = &quot;next_folder&quot;
+c = &quot;filename.xls&quot;
+path = a + &quot;/&quot; + b + &quot;/&quot; + c
+path
+&quot;C:/main_folder/other_folder/filename.xls&quot;
+</code></pre>
+<p>or in a slightly shorter and safer way with the <code>join</code> function from the <code>os.path</code> module:</p>
+<pre><code class="language-python">path = os.path.join(a, b, c)
+path
+&quot;C:\\main_folder\\other_folder\\filename.xls&quot;
+</code></pre>
+<p>To verify that the location (file or folder) exists, use the <code>exists</code> function:</p>
+<pre><code class="language-python">&gt;&gt;&gt; os.path.exists(&quot;C:/my_folder/my_existing_file.xls&quot;)
+True
+&gt;&gt;&gt; os.path.exists(&quot;C:/my_folder/a_nonexisting_file.txt&quot;)
+False
+</code></pre>
+<p>Sometimes it's also useful to find out if a given location is a folder or file address:</p>
+<pre><code class="language-python"># Verifies that a path is a file path
+&gt;&gt;&gt; os.path.isfile(&quot;C:/my_folder/my_file.xls&quot;)
+True
+&gt;&gt;&gt; os.path.isfile(&quot;C:/my_folder&quot;)
+False
+
+# Verifies if a path is a folder path
+&gt;&gt;&gt; os.path.isdir(&quot;C:/my_folder/my_file.xls&quot;)
+False
+&gt;&gt;&gt; os.path.isdir(&quot;C:/my_folder&quot;)
+True
+</code></pre>
+<blockquote>
+<p><strong>Task 3.</strong> Modify the solution of task 2 to use the function <code>os.path.join</code>.</p>
+</blockquote>
+<h2 id="split-a-string-with-a-character">Split a string with a character</h2>
+<p>For the next part of this lesson, it will be useful to get familiar with one technique of working with text strings, which was not discussed in the lesson on data types. It is the division of a string by a given character or series of characters using the <code>split</code> method, which is a function that is called directly on a given string or on a variable containing a string:</p>
+<pre><code class="language-python">&gt;&gt;&gt; &quot;anaconda&quot;.split(&quot;a&quot;)
+['', 'n', 'cond', '']
+</code></pre>
+<p>We see that the <code>split</code> function returns a list of individual parts of the original string, divided by the specified character. If this character is at the beginning resp. the end of the string, the resulting list contains an empty string at the beginning resp. the end.</p>
+<p>If we use the <code>split</code> function without an argument, ie without specifying the string by which the input string is to be divided, it will be divided by all "empty characters", ie by a space, a tab (<code>\t</code> character) or a newline character (<code>\n</code> character). If the text contains a sequence of any blanks in a row, this sequence is interpreted as if it were one blank character (ie the string is split only once at this point):</p>
+<pre><code class="language-python">&gt;&gt;&gt; text = &quot;Probability is\tthe branch of mathematics\nconcerning numerical descriptions of how likely\nan event is to occur&quot;
+&gt;&gt;&gt; print(text)
+Probability is    the branch of mathematics
+concerning numerical descriptions of how likely
+an event is to occur
+
+&gt;&gt;&gt; text.split()
+['Probability', 'is', 'the', 'branch', 'of', 'mathematics', 'concerning', 'numerical', 'descriptions', 'of', 'how', 'likely', 'an', 'event', 'is', 'to', 'occur']
+</code></pre>
+<p>In this way, you can easily divide a text into individual words.</p>
+<h2 id="reading-text-files">Reading text files</h2>
+<p>To illustrate, imagine a text file containing the following three lines of text:</p>
+<pre><code>Probability is the branch of mathematics concerning numerical descriptions of how likely an event is to occur, or how likely it is that a proposition is true.
+The probability of an event is a number between 0 and 1, where, roughly speaking, 0 indicates impossibility of the event and 1 indicates certainty.
+The higher the probability of an event, the more likely it is that the event will occur.
+</code></pre>
+<p>Suppose a file with this text is stored at <code>C:\Documents and Settings\user\Documents\probability.txt.</code></p>
+<p>To open a file for reading, use the built-in <code>open</code> function:</p>
+<pre><code class="language-python">&gt;&gt;&gt; my_file = open(r&quot;C:\Documents and Settings\user\Documents\probability.txt&quot;, &quot;r&quot;)
+</code></pre>
+<p>The value of the second parameter <code>"r"</code> is derived from the English "read" and indicates that the file will be opened for reading.</p>
+<p>If we want to read everything in the file at once, we use the <code>read()</code> function. The result is a single text string containing the entire text:</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = my_file.read()
+&gt;&gt;&gt; print(a)
+Probability is the branch of mathematics concerning numerical descriptions of how likely an event is to occur, or how likely it is that a proposition is true.
+The probability of an event is a number between 0 and 1, where, roughly speaking, 0 indicates impossibility of the event and 1 indicates certainty.
+The higher the probability of an event, the more likely it is that the event will occur.
+</code></pre>
+<p>It is important to close the file after each action with it:</p>
+<pre><code class="language-python">&gt;&gt;&gt; my_file.close()
+</code></pre>
+<p>Another option is to read only a single line using the <code>readline()</code> function (attention: in our text, the whole paragraph is a single line!). Repeated calls to this function read the individual lines one by one:</p>
+<pre><code class="language-python">&gt;&gt;&gt; my_file = open(r&quot;C:\Documents and Settings\user\Documents\probability.txt&quot;, &quot;r&quot;)
+&gt;&gt;&gt; a = my_file.readline()
+&gt;&gt;&gt; b = my_file.readline()
+&gt;&gt;&gt; print(a)
+Probability is the branch of mathematics concerning numerical descriptions of how likely an event is to occur, or how likely it is that a proposition is true.
+&gt;&gt;&gt; print (b)
+The probability of an event is a number between 0 and 1, where, roughly speaking, 0 indicates impossibility of the event and 1 indicates certainty.
+&gt;&gt;&gt; my_file.close()
+</code></pre>
+<p>Finally, the last option is to read the entire text line by line using the <code>readlines()</code> function. In this case, the result is a list of text strings containing individual lines (note the <code>\n</code> characters at the end of each line):</p>
+<pre><code class="language-python">&gt;&gt;&gt; my_file = open(r&quot;C:\Documents and Settings\user\Documents\probability.txt&quot;, &quot;r&quot;)
+&gt;&gt;&gt; a = my_file.readlines()
+&gt;&gt;&gt; print(a)
+['Probability is the branch of mathematics concerning numerical descriptions of how likely an event is to occur, or how likely it is that a proposition is true.\n', 'The probability of an event is a number between 0 and 1, where, roughly speaking, 0 indicates impossibility of the event and 1 indicates certainty.\n', 'The higher the probability of an event, the more likely it is that the event will occur.']
+&gt;&gt;&gt; my_file.close ()
+</code></pre>
+<blockquote>
+<p><strong>Task 4.</strong> Save the text ("manually", eg using Notepad) to a text file. Then open the file in Python and find out the number of lines, the number of words and the number of characters in the text.</p>
+</blockquote>
+<p>In applications, we often want to read from a file "line by line". E.g. it can be a data table in the format <code>.csv</code> ("comma-separated values​"), which is a simple text file with tabular data that can be opened in MS Excel. Reading "line by line" then means reading individual rows of the table. It is possible to use the already mentioned function <code>readlines</code>, which returns a list of lines - this can of course be followed by a <code>for</code> cycle:</p>
+<pre><code class="language-python">f = open(&quot;table.csv&quot;, &quot;r&quot;)
+lines = f.readlines()
+f.close()
+for l in lines:
+    # There will be some action with variable l
+</code></pre>
+<p>However, the object returned by the <code>open</code> function can be directly passed through in the loop, so it behaves like a list of rows:</p>
+<pre><code class="language-python">f = open(&quot;table.csv&quot;, &quot;r&quot;)
+for l in f:
+    # There will be some action with variable l
+f.close ()
+</code></pre>
+<p>In this case, however, the browsing is done using a so-called <strong>cursor</strong>, which is reflected, among other things, in the fact that if we go through the whole file to the end, the cursor is at the end of the file and further browsing returns nothing:</p>
+<pre><code class="language-python">&gt;&gt;&gt; f = open(&quot;text.txt&quot;, &quot;r&quot;)
+&gt;&gt;&gt; for l in f: print(l)
+
+first line
+second line
+...
+last line
+&gt;&gt;&gt; for l in f: print(l)
+
+&gt;&gt;&gt; f.close ()
+</code></pre>
+<p>In order to browse the file again, we would need to reload the file by calling the <code>open</code> function again.</p>
+<p>In addition, the method of reading the list of rows with the <code>readlines</code> method has the advantage that only selected rows can be browsed. An good example is skipping the first line when reading tabular data, as the first line of a table is usually a header:</p>
+<pre><code class="language-python">f = open(&quot;table.csv&quot;, &quot;r&quot;)
+lines = f.readlines()
+f.close()
+for l in lines[1:]:
+    # There will be some action with variable l
+</code></pre>
+<p>Finally, let's show how to open files without having to think about closing them later. This is possible using a <code>with</code> clause, which creates an indented block of code. Once the code returns to the previous indentation level, the file closes automatically. The syntax is as follows:</p>
+<pre><code class="language-python">with open(&quot;some_file.txt&quot;) as f:
+    f.readlines()
+    ...
+# The code continues here and the file is already closed
+</code></pre>
+<blockquote>
+<p><strong>Task 5.</strong> Open the table <a href="https://owncloud.cesnet.cz/index.php/s/SMwOA7a4evWXRhC">precipitation_2014.csv</a> in MS Excel and explore what it contains. Then close it and open it in Notepad: what separates the individual columns? Write a Python program to open the table and calculate the average precipitation in August. (Note: data comes from CHMI.)</p>
+</blockquote>
+<h2 id="writing-text-files">Writing text files</h2>
+<p>Conversely, if we want to write to a text file, it is necessary to open it with an argument <code>"w"</code> (from "write"):</p>
+<pre><code class="language-python">my_file = open(r&quot;C:\Documents and Settings\user\Documents\letter_to_grandpa.txt&quot;, &quot;w&quot;)
+</code></pre>
+<p>The file that we open in this way may not actually exist at all and is created with this command (but the appropriate folder must exist). If the file already exists, all of its content is deleted and replaced with the new content.</p>
+<p>Writing is done using the <code>write()</code> function. If you want to write a text with multiple lines, you must use the end-of-line character <code>\n</code>. Again, don't forget to close the file at the end.</p>
+<pre><code class="language-python">&gt;&gt;&gt; my_file.write(&quot;Hello grandpa.\n&quot;)
+&gt;&gt;&gt; my_file.write(&quot;Don't you know\nwhat happened to grandma?&quot;)
+&gt;&gt;&gt; my_file.close()
+</code></pre>
+<p>If we read the resulting file, we get:</p>
+<pre><code class="language-python">&gt;&gt;&gt; my_file = open(r&quot;C:\Documents and Settings\user\Documents\letter_to_grandpa.txt.txt&quot;, &quot;r&quot;)
+&gt;&gt;&gt; print(my_file.read())
+Hello grandpa.
+Don't you know
+what happened to grandma?
+&gt;&gt;&gt; my_file.close()
+</code></pre>
+<p>It remains to be solved how to write to an existing file without overwriting it all when it is opened. This can be done by opening it with an <code>"a"</code> argument (from "append"). Then the <code>write()</code> function writes the given text to the end after the already existing text:</p>
+<pre><code class="language-python">&gt;&gt;&gt; my_file = open(r&quot;C:\Documents and Settings\user\Documents\letter_to_grandpa.txt&quot;, &quot;a&quot;)
+&gt;&gt;&gt; my_file.write(&quot;\nI've heard some crazy stories...&quot;)
+&gt;&gt;&gt; my_file.close ()
+</code></pre>
+<p>The result looks like this:</p>
+<pre><code class="language-python">&gt;&gt;&gt; my_file = open(r&quot;C:\Documents and Settings\user\Documents\letter_to_grandpa.txt&quot;, &quot;r&quot;)
+&gt;&gt;&gt; print(my_file.read())
+Hello grandpa.
+Don't you know
+what happened to grandma?
+I've heard some crazy stories...
+&gt;&gt;&gt; my_file.close()
+</code></pre>
+<blockquote>
+<p><strong>Task 6.</strong> Write a program that replaces decimal dots with decimal commas in the table <a href="https://owncloud.cesnet.cz/index.php/s/SMwOA7a4evWXRhC">precipitation_2014.csv</a>.</p>
+</blockquote>
+<h2 id="summary">Summary</h2>
+<h2 id="tasks">Tasks</h2>
+<ol>
+<li>Write a program that creates a reverse copy of a text file (ie the text in the output file will be mirrored).</li>
+<li>Write a program that calculates the frequency of occurrence of a given letter in the specified input text file. Solve first using the <code>count</code> method of lists, then without this method.</li>
+<li>In the folder <a href="https://owncloud.cesnet.cz/index.php/s/C3cV43wNi3ngFiJ">data_temperature</a> you will find text files containing data on temperature measurement (in dozens of degrees Celsius) at individual European stations (each station corresponds to one file). Write a program that extracts temperature values ​​for May 1998 from these text files, calculates their average for each station ​​and saves the result in a new text table in the format <code>.csv</code> (the column separator will be a semicolon). The output table will contain two columns: "STAID" with the station identifier and "T" with the average temperature in May 1998.</li>
+</ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../about_me/" class="btn btn-neutral float-right" title="About me...">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Lesson%2006%20Interactive%20inputs%20and%20random%20numbers/" class="btn btn-neutral" title="Lesson 6: Inputs and random numbers"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../Lesson%2006%20Interactive%20inputs%20and%20random%20numbers/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../about_me/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
