@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Vojta Barták">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Lekce 6: Inputs and random numbers - Python pro ArcGIS</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Lekce 6: Inputs and random numbers";
+    var mkdocs_page_input_path = "Lesson 06 Interactive inputs and random numbers.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Python pro ArcGIS</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Model Builder</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2001%20Model%20Builder%20I/">Lesson 1: Model editting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2002%20Model%20Builder%20II/">Lesson 2: User environment</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Python</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2003%20Writing%20and%20running%20Python%20programs/">Lesson 3: Starting python</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lesson 04 Variables and data types">Lesson 4: Variables and data types</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2005%20Conditions%20and%20Loops/">Lesson 5: Loops and conditions</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Lekce 6: Inputs and random numbers</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#input-and-raw_input-functions-in-python-2x">input and raw_input functions in Python 2.x</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#use-of-console-inputs-into-calculations">Use of console inputs into calculations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#input-function-in-python-3x">input function in Python 3.x</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#generate-random-numbers">Generate random numbers</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tasks">Tasks</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 7 Práce s adresářovou strukturou a s textovými soubory.md">Lekce 7: Adresáře a textové soubory</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 8 Funkce a moduly.md">Lekce 8: Funkce a moduly</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 9 Třídy a objekty.md">Lekce 9: Třídy a objekty</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">ArcPy</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Lekce 10 Spouštění nástrojů ArcGIS pomocí balíčku ArcPy.md">Lekce 10: Spouštění nástrojů</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 11 Procházení geodat a jejich vlastností pomocí balíčku ArcPy.md">Lekce 11: Procházení a prohlížení geodat</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 12 Uživatelská rozhraní nástrojů.md">Lekce 12: Uživatelská rozhraní</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 15 Procházení tabulek pomocí kurzorů.md">Lekce 15: Kurzory</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 18 Rastrové analýzy.md">Lekce 18: Rastrové analýzy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about_me/">About me...</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Python pro ArcGIS</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Python &raquo;</li>
+        
+      
+    
+    <li>Lekce 6: Inputs and random numbers</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/edit/master/docs/Lesson 06 Interactive inputs and random numbers.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="lesson-6-interactive-program-inputs-and-random-numbers">Lesson 6: Interactive program inputs and random numbers</h1>
+<p>In this lesson, you will learn how to interactively enter inputs into a program in Python, which we run on the console (eg in the IDLE environment). Inputs are entered using the <code>input</code> function. Because its properties are different in Python series 2.x and series 3.x, we will discuss both variants separately. Next you will learn how to generate random numbers in Python.</p>
+<h2 id="input-and-raw_input-functions-in-python-2x"><code>input</code> and <code>raw_input</code> functions in Python 2.x</h2>
+<p>In Python 2.x versions, there are two functions, <code>input</code> and <code>raw_input</code>.</p>
+<p>The <code>input</code> function prints a text entered on the console and then waits for the user to enter input on the console:</p>
+<pre><code class="language-python">&gt;&gt;&gt; input(&quot;Dear user, enter a number:&quot;)
+Dear user, enter a number:
+</code></pre>
+<p>After typing a number and confirming with the <code>Enter</code> key, the function returns the value entered by the user, automatically evaluating which data type it is:</p>
+<pre><code class="language-python">&gt;&gt;&gt; input(&quot;Dear user, enter a number:&quot;)
+Dear user, enter a number: 5
+5
+</code></pre>
+<p>In this case, the function automatically recognizes that it is a number because a number without quotation marks was entered. If we wanted the function to read the input as a text string, we would have to enter the input in quotation marks:</p>
+<pre><code class="language-python">&gt;&gt;&gt; input(&quot;Dear user, enter a text:&quot;)
+Dear user, enter a text: &quot;5&quot;
+'5'
+</code></pre>
+<p>Other data types can be entered similarly:</p>
+<pre><code class="language-python">&gt;&gt;&gt; input(&quot;Dear user, enter a list:&quot;)
+Dear user, enter a list: [1,2,3,4]
+[1, 2, 3, 4]
+</code></pre>
+<p>or eg a function call:</p>
+<pre><code class="language-python">&gt;&gt;&gt; input(&quot;Dear user, enter a list from 0 to 5:&quot;)
+Dear user, enter a list from 0 to 5: range(6)
+[0, 1, 2, 3, 4, 5]
+</code></pre>
+<p>The <code>raw_input</code> function, on the other hand, returns any input as a text string:</p>
+<pre><code class="language-python">&gt;&gt;&gt; raw_input(&quot;Dear user, enter a number:&quot;)
+Dear user, enter a number: 5
+'5'
+
+&gt;&gt;&gt; raw_input(&quot;Dear user, enter a list:&quot;)
+Dear user, enter a list: [1,2,3,4]
+'[1,2,3,4]'
+
+&gt;&gt;&gt; raw_input(&quot;Dear user, enter a list from 0 to 5:&quot;)
+Dear user, enter a list from 0 to 5: range(6)
+'range(6)'
+</code></pre>
+<h2 id="use-of-console-inputs-into-calculations">Use of console inputs into calculations</h2>
+<p>In the above examples, we only had the result of calling the <code>input</code> function written to the console. Usually, however, we want to perform some other calculations or operations with it. We ensure this by saving the result of <code>input</code> or <code>raw_input</code> in a variable:</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = input(&quot;Dear user, enter a number:&quot;)
+Dear user, enter a number: 5
+&gt;&gt;&gt; a + 2
+7
+</code></pre>
+<p>However, in the case of the <code>raw_input</code> function, we must not forget to convert the text input to the required data type:</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = raw_input(&quot;Dear user, enter a number:&quot;)
+Dear user, enter a number: 5
+&gt;&gt;&gt; int(a) + 2
+7
+</code></pre>
+<p>It is also possible to use the <code>eval</code> function, which takes a text input and tries to interpret it as a Python code and return the desired output:</p>
+<pre><code class="language-python">&gt;&gt;&gt; my_list = raw_input(&quot;Dear user, enter list from 0 to 5:&quot;)
+Dear user, enter a list from 0 to 5: range(6)
+&gt;&gt;&gt; my_list
+'range(6)'
+&gt;&gt;&gt; eval(my_list)
+[0, 1, 2, 3, 4, 5]
+</code></pre>
+<p>Therefore, the behavior of the <code>input()</code> function can be mimicked using <code>eval(raw_input())</code>:</p>
+<pre><code class="language-python">&gt;&gt;&gt; list = eval (raw_input (&quot;Dear user, enter list from 0 to 5:&quot;))
+Dear user, enter list from 0 to 5: range (6)
+&gt;&gt;&gt; list
+[0, 1, 2, 3, 4, 5]
+</code></pre>
+<blockquote>
+<p><strong>Task 1.</strong> Write a program that prompts the user to enter a natural number and then returns its factorial.</p>
+<p><strong>Task 2.</strong> Write a program that prompts the user to enter two numbers one by one and then tells if the larger one is divisible by the smaller one.</p>
+</blockquote>
+<h2 id="input-function-in-python-3x"><code>input</code> function in Python 3.x</h2>
+<p>The following changes have been made in Python 3.x:</p>
+<ul>
+<li>the <code>raw_input</code> function has been canceled,</li>
+<li>the behavior of the <code>input</code> function has been changed to the original behavior of the <code>raw_input</code> function.</li>
+</ul>
+<p>This means that only the <code>input</code> function is used for interactive input via the console, and the input is always passed as a text string. If you want to work with it as a number, list, etc., you need to use casting (conversion function <code>int</code>, <code>float</code>, <code>list</code>, etc.), or the function <code>eval</code>.</p>
+<h2 id="generate-random-numbers">Generate random numbers</h2>
+<p>The <code>random</code> module in Python is used to generate random numbers, which is part of the basic equipment of the language. The module must first be loaded with the <code>import</code> command:</p>
+<pre><code class="language-python">&gt;&gt;&gt; import random
+</code></pre>
+<p>The individual functions of the module are then accessed, as is usual in Python, via the module name, the dot, and the function name. E.g. the function <code>random()</code>, called without arguments, generates a random number from the interval (0, 1) (from the uniform distribution):</p>
+<pre><code class="language-python">&gt;&gt;&gt; import random
+&gt;&gt;&gt; random.random()
+0.6744697203253585
+&gt;&gt;&gt; random.random()
+0.7169711430089877
+&gt;&gt;&gt; random.random()
+0.4213975602144999
+</code></pre>
+<p>The module can be loaded and further used under a custom alias:</p>
+<pre><code class="language-python">&gt;&gt;&gt; import random as rn
+&gt;&gt;&gt; a = rn.random()
+&gt;&gt;&gt; a
+0.8591162717665027
+</code></pre>
+<p>The function <code>randint(a, b)</code> returns a random integer from the interval &lt;<code>a</code>,<code>b</code>&gt; (including both limits):</p>
+<pre><code class="language-python">&gt;&gt;&gt; rn.randint(-100, 100)
+70
+&gt;&gt;&gt; rn.randint(-100, 100)
+-89
+</code></pre>
+<p>The <code>choice(seq)</code> function returns a randomly selected element from a sequence (list, tuple, etc.) <code>seq</code>:</p>
+<pre><code class="language-python">&gt;&gt;&gt; my_list = [1, &quot;two&quot;, 3, &quot;four&quot;, 5]
+&gt;&gt;&gt; rn.choice(my_list)
+5
+&gt;&gt;&gt; rn.choice(my_list)
+'two'
+</code></pre>
+<p>The <code>sample(population, k)</code> function returns a random selection of the size <code>k</code> from the sequence <code>population</code>:</p>
+<pre><code class="language-python">&gt;&gt;&gt; rn.sample(range(100), 10)
+[10, 67, 93, 45, 56, 17, 71, 8, 91, 9]
+</code></pre>
+<p>The function <code>uniform(a, b)</code> returns a random number generated from a uniform distribution on the interval &lt;<code>a</code>,<code>b</code>&gt;. (Note: same as <code>a + random() * abs(a - b)</code>.)</p>
+<pre><code class="language-python">&gt;&gt;&gt; rn.uniform(2,4)
+2.8693870960257666
+</code></pre>
+<p>The <code>gauss(mu, sigma)</code> function returns a random number generated from a normal distribution with a mean of <code>mu</code> and a standard deviation of <code>sigma</code>:</p>
+<pre><code class="language-python">&gt;&gt;&gt; rn.gauss(0, 1)
+-0.072104281974643761
+</code></pre>
+<p>A real computer-based random number generator does not exist (and in principle cannot exist). The numbers that we call "random" are in fact only <em>pseudo-random</em>, ie those that only appear to be random. In fact, each additional number in a sequence of these "pseudo-random" numbers is precisely (and always in the same way) calculated from the previous number using a sophisticated algorithm. So why do we call (and use) them as they really were random? What is their "randomness"? It consists in the fact that if we generate an arbitrarily long sequence, it will always "look" random statistically. No statistical test reveals a correlation between successive numbers.</p>
+<p>It follows that if we were to generate two seaprate sequences of random numbers with a given (same) generator, starting always from the same first number, both sequences would be identical (although each of them would appear random on its own). In practice, this problem is solved by starting with a different number each time, ann this first number is called the <em>seed</em>. By default, the seed is automatically derived from the instant system time of the computer.</p>
+<p>However, it is also possible to set the seed to a specific fixed value, which is useful if, for example, we want to repeatedly test an algorithm working with random numbers, while we want the same values ​​to enter each test. Use the <code>seed</code> function to set the seed:</p>
+<pre><code class="language-python">&gt;&gt;&gt; rn.seed(123)
+&gt;&gt;&gt; rn.random()
+0.052363598850944326
+&gt;&gt;&gt; rn.random()
+0.08718667752263232
+&gt;&gt;&gt; rn.random()
+0.4072417636703983
+&gt;&gt;&gt; rn.seed(123)
+&gt;&gt;&gt; rn.random()
+0.052363598850944326
+&gt;&gt;&gt; rn.random()
+0.08718667752263232
+&gt;&gt;&gt; rn.random()
+0.4072417636703983
+</code></pre>
+<p>As can be seen from the example, after setting the seed to the same value (in our case 123), the following sequence forms the same numbers.</p>
+<blockquote>
+<p><strong>Task 3.</strong> Generate 1000 numbers from an even distribution on the interval(0, 1) and find out what percentage of them is greater than 0.7.</p>
+</blockquote>
+<h2 id="summary">Summary</h2>
+<h2 id="tasks">Tasks</h2>
+<ol>
+<li>Create a program that will test you in basic math, namely multiplication of two natural numbers. The program randomly generates an exercise and prompts you to enter a result. In case of a wrong answer, it will correct you; in case of a correct answer, it will congratulate you.</li>
+<li>Modify the program from the previous task so that in case of a wrong answer it will force you to enter the result again, until you enter the correct one.</li>
+<li>Modify the program from the previous task so that when the exercise succesfully ends, you will be asked if you want to continue with a next excercise. If you choose "yes" (eg by entering "Y" as "YES"), it will give you another exercise. If you select "no" (eg "N" as "NO"), it will end.</li>
+<li>Generate 10,000 numbers from the normal distribution with a mean value of 13 and a standard deviation of 2.3. Calculate their sample mean and sample standard deviation. Calculate the same values ​​from a random selection of 100 numbers from the generated set of 10,000 numbers. Which sample values ​​are closer to the mean and standard deviation of the original normal distribution? Why?</li>
+</ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../about_me/" class="btn btn-neutral float-right" title="About me...">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Lesson%2005%20Conditions%20and%20Loops/" class="btn btn-neutral" title="Lesson 5: Loops and conditions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../Lesson%2005%20Conditions%20and%20Loops/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../about_me/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
