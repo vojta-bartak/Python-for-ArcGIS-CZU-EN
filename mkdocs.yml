@@ -12,7 +12,7 @@ nav:
         - 'Lesson 3: Starting python': 'Lesson 03 Writing and running Python programs.md'
         - 'Lesson 4: Variables and data types': 'Lesson 04 Variables and data types'
         - 'Lesson 5: Loops and conditions': 'Lesson 05 Conditions and Loops.md'
-        - 'Lekce 6: Vstupy a náhodná čísla': 'Lekce 6 Interaktivní vstupy do programu a náhodná čísla.md'
+        - 'Lekce 6: Inputs and random numbers': 'Lesson 06 Interactive inputs and random numbers.md'
         - 'Lekce 7: Adresáře a textové soubory': 'Lekce 7 Práce s adresářovou strukturou a s textovými soubory.md'
         - 'Lekce 8: Funkce a moduly': 'Lekce 8 Funkce a moduly.md'
         - 'Lekce 9: Třídy a objekty': 'Lekce 9 Třídy a objekty.md'
