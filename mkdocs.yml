@@ -1,4 +1,4 @@
-site_name: Python pro ArcGIS
+site_name: Python for ArcGIS
 site_author: Vojta Barták
 repo_url: https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN
 theme: readthedocs
@@ -12,8 +12,8 @@ nav:
         - 'Lesson 3: Starting python': 'Lesson 03 Writing and running Python programs.md'
         - 'Lesson 4: Variables and data types': 'Lesson 04 Variables and data types'
         - 'Lesson 5: Loops and conditions': 'Lesson 05 Conditions and Loops.md'
-        - 'Lekce 6: Inputs and random numbers': 'Lesson 06 Interactive inputs and random numbers.md'
-        - 'Lekce 7: Adresáře a textové soubory': 'Lekce 7 Práce s adresářovou strukturou a s textovými soubory.md'
+        - 'Lesson 6: Inputs and random numbers': 'Lesson 06 Interactive inputs and random numbers.md'
+        - 'Lesson 7: Directories and text files': 'Lesson 07 Directories and text files.md'
         - 'Lekce 8: Funkce a moduly': 'Lekce 8 Funkce a moduly.md'
         - 'Lekce 9: Třídy a objekty': 'Lekce 9 Třídy a objekty.md'
     - ArcPy:
