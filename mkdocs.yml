@@ -14,7 +14,7 @@ nav:
         - 'Lesson 5: Loops and conditions': 'Lesson 05 Conditions and Loops.md'
         - 'Lesson 6: Inputs and random numbers': 'Lesson 06 Interactive inputs and random numbers.md'
         - 'Lesson 7: Directories and text files': 'Lesson 07 Directories and text files.md'
-        - 'Lekce 8: Funkce a moduly': 'Lekce 8 Funkce a moduly.md'
+        - 'Lesson 8: Functions and modules': 'Lesson 08 Functions and modules.md'
         - 'Lekce 9: Třídy a objekty': 'Lekce 9 Třídy a objekty.md'
     - ArcPy:
         - 'Lekce 10: Spouštění nástrojů': 'Lekce 10 Spouštění nástrojů ArcGIS pomocí balíčku ArcPy.md'
