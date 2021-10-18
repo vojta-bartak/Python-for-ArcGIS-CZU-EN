@@ -240,7 +240,7 @@ fact = 1
 i = 2
 while i <= n:
     fact = fact * i
-i = i + 1
+    i = i + 1
 print(fact)
 ```
 
@@ -357,7 +357,7 @@ The above calculation of the factorial could therefore also look like this:
 ```python
 n = 20
 fact = 1
-for i in range(n):
+for i in range(1, n+1):
     fact = fact * i
 print(fact)
 ```
