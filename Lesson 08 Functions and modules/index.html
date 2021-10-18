@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Vojta Barták">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Lesson 8: Functions and modules - Python for ArcGIS</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Lesson 8: Functions and modules";
+    var mkdocs_page_input_path = "Lesson 08 Functions and modules.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Python for ArcGIS</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Model Builder</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2001%20Model%20Builder%20I/">Lesson 1: Model editting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2002%20Model%20Builder%20II/">Lesson 2: User environment</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Python</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2003%20Writing%20and%20running%20Python%20programs/">Lesson 3: Starting python</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lesson 04 Variables and data types">Lesson 4: Variables and data types</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2005%20Conditions%20and%20Loops/">Lesson 5: Loops and conditions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2006%20Interactive%20inputs%20and%20random%20numbers/">Lesson 6: Inputs and random numbers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2007%20Directories%20and%20text%20files/">Lesson 7: Directories and text files</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Lesson 8: Functions and modules</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#defining-and-calling-a-function">Defining and calling a function</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#namespaces-and-passing-function-arguments">Namespaces and passing function arguments</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#working-with-modules">Working with modules</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-to-create-your-own-module">How to create your own module</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tasks">Tasks</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 9 Třídy a objekty.md">Lekce 9: Třídy a objekty</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">ArcPy</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="" href="../Lekce 10 Spouštění nástrojů ArcGIS pomocí balíčku ArcPy.md">Lekce 10: Spouštění nástrojů</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 11 Procházení geodat a jejich vlastností pomocí balíčku ArcPy.md">Lekce 11: Procházení a prohlížení geodat</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 12 Uživatelská rozhraní nástrojů.md">Lekce 12: Uživatelská rozhraní</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 15 Procházení tabulek pomocí kurzorů.md">Lekce 15: Kurzory</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 18 Rastrové analýzy.md">Lekce 18: Rastrové analýzy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about_me/">About me...</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tests_upload/">Tests upload</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Python for ArcGIS</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Python &raquo;</li>
+        
+      
+    
+    <li>Lesson 8: Functions and modules</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/edit/master/docs/Lesson 08 Functions and modules.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="lesson-8-functions-and-modules">Lesson 8: Functions and modules</h1>
+<h2 id="defining-and-calling-a-function">Defining and calling a function</h2>
+<p>Often there is a situation where we want to use some part of our code repeatedly. For example, we may want to repeatedly count the factorial of a number in our program (and this number may be different each time). We have shown the calculation of the factorial in the chapter on the <code>for</code> cycle, the solution may look like this:</p>
+<pre><code class="language-python">factorial = 1
+for i in range(n): factorial = factorial * (i + 1)
+print(factorial)
+</code></pre>
+<p>The "most primitive" option would be to insert this code wherever we need to count the factorial in the code, of course always with the properly changed value of <code>n</code>.</p>
+<p>The problem with such a solution arises when we want to change the factorial calculation itself - for example, if we find that we have made a mistake in the original code and it needs to be fixed. If we have the above code in our program in many places, it is necessary to rewrite it (correctly) in each such place. This is very inconvenient and, in addition, we easily make mistakes.</p>
+<p>A more elegant solution is to create (ie define) a <strong>function</strong> that will perform the factorial calculation, and then call this function at the appropriate places.</p>
+<p>The structure of a function definition is as follows:</p>
+<pre><code class="language-python">def function_name(parameter1, parameter2, ..., parameterN):
+    body of the function
+</code></pre>
+<p>The definition is introduced by the keyword <code>def</code>, according to which the interpreter recognizes that it is a definition of a function. This is followed by a name, under which the function will be called. Then, a sequence of so-called <strong>parameters</strong> is defined in parentheses. Parameters are variables representing the values ​​entering the calculation that the function is to perform. <strong>The body of a function</strong> then contains statements (written on separate lines indented one level after the word <code>def</code>) that usually do something with the parameters. Let's show the function on a specific example of factorial calculation:</p>
+<pre><code class="language-python">def factorial(n):
+    fact = 1
+    for i in range (n): fact = fact * (i + 1)
+    return fact
+</code></pre>
+<p>The <code>return</code> keyword terminates the function definition (but is not required, as we will see below), and specifies what value the function should return when the function is called.</p>
+<p>If we send the code with the function definition to the compiler (or interpreter), it will not execute the commands in the function body, but instead it will store the function in the operational memory so that it can be called <strong>at any time</strong>. The function call has a structure analogous to its definition:</p>
+<pre><code class="language-python">function_name(argmunet1, argument2, ..., argumentN)
+</code></pre>
+<p>The individual arguments correspond exactly to the individual parameters of the function, they are actually specific values ​​that are substituted for the individual parameters when calling the function. Let's call our factorial function in the Python Shell console:</p>
+<pre><code class="language-python">&gt;&gt;&gt; factorial(3)
+6
+&gt;&gt;&gt; factorial(6)
+720
+&gt;&gt;&gt; factorial(10)
+3628800
+</code></pre>
+<p>The advantage of this solution is obvious: we can now use the <code>factorial</code> function with any integer argument in any place of our code, and if we want to change the function in some way, we only need to do so once, in its very definition.</p>
+<p>Here is an example of a function with more than one parameter, such as a function that computes a given integer power of a given number:</p>
+<pre><code class="language-python">def power(x, y):
+    result = 1
+    for i in range(y): result = result * x
+    return result
+</code></pre>
+<p>(Of course, we could have defined the function more easily: <code>def power(x, y): return x ** y</code>. However, examine the more complex definition above and realize that it will work for an integer power.)</p>
+<p>When calling a function, it is necessary to write its arguments in the same order in which the corresponding parameters are defined:</p>
+<pre><code class="language-python">&gt;&gt;&gt; power(3,4)
+81
+&gt;&gt;&gt; power(4,3)
+64
+</code></pre>
+<p>If, for some reason, we would like to enter the arguments in a different order than is defined by the parameters, it is possible to explicitly use the names of the corresponding parameters and the <code>=</code> operator when calling the function:</p>
+<pre><code class="language-python">&gt;&gt;&gt; power(y = 4, x = 3)
+81
+</code></pre>
+<p>Entering an argument using the parameter's name is useful for functions with a large number of parameters: it would be impractical to remember their order.</p>
+<p>Parameters can have a so-called <strong>default value</strong>, so it is not necessary to enter them when calling the function. If no argument is specified, this default value is used. However, parameters with a default value must be placed at the end of the function definition, ie after parameters without default values. This is to ensure that parameters without default values ​​can be entered ​​based on parameters order.</p>
+<p>Let's show the definition with a default parameter value on the example of the power function. If we define the default value of the <code>y</code> parameter as 2, the function will calculate squares when entering only one argument:</p>
+<pre><code class="language-python">def power(x, y = 2):
+    result = 1
+    for i in range(y): result = result * x
+    return result
+</code></pre>
+<p>After calling the function in the Python Shell:</p>
+<pre><code class="language-python">&gt;&gt;&gt; power(4) # The default value of the y parameter will be used here
+16
+&gt;&gt;&gt; power(4, 3) # The user-specified value of the y parameter will be used here
+64
+</code></pre>
+<p>Of course, the result of a function call can be stored in a variable, as you know it when using Python's built-in functions (eg <code>input</code>, <code>range</code>, <code>int</code>, etc.):</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = power(4)
+&gt;&gt;&gt; print(a)
+16
+</code></pre>
+<p>Likewise, the arguments of a function can be entered directly using values ​​(see examples above), or using variables:</p>
+<pre><code class="language-python">&gt;&gt;&gt; a = 4
+&gt;&gt;&gt; b = 5
+&gt;&gt;&gt; power(a, b)
+1024
+</code></pre>
+<p>As already mentioned, functions may or may not have a return value. If a function only does something but does not return anything, it is sometimes called a <em>procedure</em>. It is recognized by the fact that it does not contain the keyword <code>return</code> in the definition. An example is a function that writes the result of a calculation to a text file:</p>
+<pre><code class="language-python"># A function that opens a text file and creates a new one, with mirror-inverted text
+def invert_text(txt_in, txt_out):
+
+    # read the input text file
+    in_file = open(txt_in, &quot;r&quot;)
+    in_text = in_file.read()
+    in_file.close()
+
+    # write an output file with mirrored text
+    out_file = open(txt_out, &quot;w&quot;)
+    for i in range(len(in_text), 0, -1):
+        out_file.write(in_text[i-1])
+    out_file.close()
+</code></pre>
+<p>If we store the call of such a function (procedure) in a variable, this variable will contain nothing (it will refer to the <code>None</code> object). Nevertheless, the function (procedure) does its job.</p>
+<blockquote>
+<p><strong>Task 1.</strong> Write a function to calculate the <em>n</em>'th member of the Fibonacci sequence.</p>
+<p><strong>Task 2.</strong> Write a function that opens a given text file and returns the number of its words (the parameter of the function will be a text string with the file address).</p>
+</blockquote>
+<h2 id="namespaces-and-passing-function-arguments">Namespaces and passing function arguments</h2>
+<p>Variable and function names always exist in some <strong>namespace</strong>, sometimes <strong>scope</strong>, in which they were defined. Within this namespace, the variable or function is then "visible", ie they can be referenced there. Namespaces are arranged hierarchically:</p>
+<ol>
+<li>The basic namespace is the so-called <em>built-in namespace</em>, which contains, for example, the names of built-in functions such as <code>range</code> or <code>print</code>. Because these names are defined in the built-in namespace, they are available in any part of the Python code (that is, in all hierarchically lower namespaces).</li>
+<li>One hierarchical level below is the so-called <em>global namespace</em>. This is created automatically when you open the Python Shell console (or when you run a script). If we open the console by running the IDLE program from the program menu, or restart it with <em>Shell -&gt; Restart Shell</em>, the global namespace is set to empty. Whenever a variable or function is created, the name is then added to the global namespace, so we can continue to work with it in that namespace. However, restarting the console empties the global namespace again:</li>
+</ol>
+<pre><code class="language-console">&gt;&gt;&gt; a = 5 # Create a variable in the global namespace
+&gt;&gt;&gt; a # Variable exists ...
+5
+&gt;&gt;&gt;
+============================== RESTART: Shell =============== ===============
+&gt;&gt;&gt; a # After restarting the console, the variable in the global namespace is no longer:
+
+Traceback (most recent call last):
+  File &quot;&lt;pyshell # 2&gt;&quot;, line 1, in &lt;module&gt;
+    and
+NameError: name 'a' is not defined
+</code></pre>
+<ol>
+<li>The last hierarchical level is the so-called <em>local namespaces</em>, which are assigned to functions. In practice, this means that if we define a variable in the body of a function, that variable exists ("is visible") only in the local namespace of that function. We can therefore refer to this variable inside the function, but not outside of it:</li>
+</ol>
+<pre><code class="language-console">&gt;&gt;&gt; def my_function (): a = 5 # Here we have defined a local variable in the function namespace
+&gt;&gt;&gt; a # Here we see that this variable does not exist outside the function
+
+Traceback (most recent call last):
+  File &quot;&lt;pyshell # 17&gt;&quot;, line 1, in &lt;module&gt;
+    and
+NameError: name 'a' is not defined
+</code></pre>
+<p>If we refer to a name (ie a variable or function) anywhere in the code, the compiler first looks for the name in the appropriate local namespace. If it does not find such a name there, it continues to search the global namespace. If it still fails there, it searches the built-in namespace. If it fails there as well, the result is the error message <code>NameError: name is not defined</code> (see the example above).</p>
+<p>The described hierarchy manifests itself, among other things, in the fact that if we define a name in the local namespace that is identical to another name defined in the global or built-in namespace, this local name will always take precedence. In the following code, we use the name <code>range</code> to create a variable in which we store a text string. We know that in the built-in namespace, it is the name of a function that creates a sequence of numbers. However, if we subsequently want to call this function, the name <code>range</code> is first found in the local namespace, where it is a variable and not a function. The result is an error message that the text string cannot be called as a function (<code>TypeError: 'str' object is not callable</code>):</p>
+<pre><code class="language-console">&gt;&gt;&gt; range = &quot;Some text.&quot;
+&gt;&gt;&gt; range(5)
+
+Traceback (most recent call last):
+  File &quot;&lt;pyshell # 26&gt;&quot;, line 1, in &lt;module&gt;
+    range(5)
+TypeError: 'str' object is not callable
+</code></pre>
+<p>When creating names, it is therefore necessary to be careful not to "rewrite" any name from some parent namespace.</p>
+<p>Local namespaces can be more nested: we can define a function within another function. Such a nested function will then be usable (ie callable) only within that parent function. (We do not give an example.)</p>
+<blockquote>
+<p>In fact, we omitted object and class namespaces in the namespace hierarchy. However, we will return to these in the relevant chapter, dealing with object-oriented programming in Python.</p>
+</blockquote>
+<p>What if, when calling a function, we set its argument using an existing variable? In what namespace will this variable exist? Will the value of this original variable change if the function contains code that somehow changes the corresponding parameter? Let's illustrate the question with an example: we have a function that takes a list as an argument and adds another element with a value of 1 (using the <code>append</code> method) to it, without returning the changed list with the <code>return</code> command:</p>
+<pre><code class="language-python">def add_one(my_list):
+    my_list.append(1)
+</code></pre>
+<p>If we call the function on a specific list, will it affect it or not?</p>
+<p>In programming languages, there are generally two possible ways in which functions handle their arguments (recall that <em>argument</em> is a parameter value ​​specified when calling a function):</p>
+<ul>
+<li><strong>arguments passed by value</strong> - when a function is called, a new variable is created in its local namespace, to which only the <em>value</em> of the argument is copied. This local variable is therefore independent of the original variable that was used as the argument. Therefore, any change to this variable will <em>not</em> be reflected outside the function. In this case, our <code>add_one</code> function would not change the original list.</li>
+<li><strong>arguments passed by reference</strong> - when a function is called, a new variable is created in its local namespace that <em>refers to the same memory location</em> as the original variable that was used as the argument. This means that if we somehow change the value of this local variable, the change will also affect the original variable outside the function. So calling the <code>add_one</code> function would really change the original list.</li>
+</ul>
+<p>In Python, arguments are always passed <strong>by reference</strong>, so the second option applies (attention: in other languages ​​it may be different!):</p>
+<pre><code class="language-console">&gt;&gt;&gt; a = [1,2,3]
+&gt;&gt;&gt; add_one(a)
+&gt;&gt;&gt; a
+[1, 2, 3, 1]
+</code></pre>
+<p>However, we could easily come up with an example that seems to be behaving the other way around. E.g. the following function does practically the same thing as the <code>add_one</code> function:</p>
+<pre><code class="language-python">def add_one2(my_list):
+    my_list = my_list + [1]
+</code></pre>
+<p>If we test its behavior, we find that the outer list passed as an argument to this function remains unaffected by the function call:</p>
+<pre><code class="language-console">&gt;&gt;&gt; a = [1,2,3]
+&gt;&gt;&gt; add_one2(a)
+&gt;&gt;&gt; a
+[1, 2, 3]
+</code></pre>
+<p>In fact, what we mentioned above still applies: the list <code>a</code> is passed by reference, and if it were really changed in the function, this change would be reflected outside the function, ie by changing this original list <code>a</code>. The problem is that the <code>add_one2</code> function doesn't actually change the original list, but instead creates a new list, independent of the original. On the line <code>my_list = my_list + [1]</code> a new variable <code>my_list</code> is created, the value of which is derived from the value of the original variable <code>my_list</code> (on the right side of the expression). This new variable is, however, independent of the original one (ie refers to other memory location). Moreover, this new variable, because it is created inside a function, exists only in the local namespace of that function. The original list thus remains unchanged.</p>
+<p>If we wanted the change made by <code>my_list = my_list + [1]</code> to be reflected in the "outer" variable with the original list, we could pass the result of the function calculation "out" using the <code>return</code> statement:</p>
+<pre><code class="language-python">def add_one3(my_list):
+    my_list = my_list + [1]
+    return my_list
+</code></pre>
+<p>Then we could store the result of the function in the original variable:</p>
+<pre><code class="language-console">&gt;&gt;&gt; a = [1,2,3]
+&gt;&gt;&gt; a = add_one3(a)
+&gt;&gt;&gt; a
+[1, 2, 3, 1]
+</code></pre>
+<h2 id="working-with-modules">Working with modules</h2>
+<p>A module is a file with source code, containing mainly definitions of various functions (but also other objects, such as variables, classes, etc.). The meaning of the module is that it allows the use of functions (or other objects) defined in it in any code, without having to define these functions in the given code. These functions are already defined in the module and we just need to load them from the given module.</p>
+<p>In fact, the module is formally no different from any script. It is nothing but a text file with the extension <code>.py</code>. We can actually consider any script being a module. In practice, however, the name <em>module</em> is reserved for scripts that contain almost exclusively definitions of functions (or classes). Modules often play a role of a <strong>function library</strong>, usable in any other script or directly in the interactive Python Shell console.</p>
+<p>In addition to modules, there are so-called <strong>site-packages</strong> in Python terminology. Their meaning is the same as for modules, the only difference is that they have a more complex structure, thanks to which one package can contain a number of modules. Since the use of packages is not formally different from the use of modules, we will not distinguish between packages and modules in this text and we will remain with the collective designation <em>module</em>. The modules contained within the packages will then be referred to as <em>sub-modules</em>, if necessary.</p>
+<p>As you already know, if you want to use functions of a module, you need to load the module using the <code>import</code> command. The syntax is:</p>
+<pre><code class="language-python">import module_name
+</code></pre>
+<p>The name of the module is given without the <code>.py</code> extension and without specifying its location on the disk. Of course, the relevant module must exist and must be located in one of the folders in which the modules are searched when using the <code>import</code> command. (How to find out or influence which folders on your computer are searched when loading modules, we'll talk about in the next section.)</p>
+<p>After loading a module, we have all its functions that are defined in it available. In other words, the appropriate names are added to the global namespace, but prefixed with <code>module_name.</code>. We then approach the functions (or variables and other objects) as follows:</p>
+<pre><code class="language-python">module_name.function_name(arguments)
+</code></pre>
+<p>Example of <code>os</code> module:</p>
+<pre><code class="language-console">&gt;&gt;&gt; import os
+&gt;&gt;&gt; os.getcwd()
+'C:\\my_path\\working_directory'
+</code></pre>
+<p>If we want to use only some part of a module, eg only one function, we can load only this part instead of the whole module:</p>
+<pre><code class="language-python">from module_name import function_name
+</code></pre>
+<p>The loaded function is then available directly under its name, ie we do not have to (and cannot) access it by specifying the module name and the dot. The appropriate name is added directly to the global namespace:</p>
+<pre><code class="language-console">&gt;&gt;&gt; from os import getcwd
+&gt;&gt;&gt; getcwd()
+'C:\\my_path\\working_directory'
+</code></pre>
+<p>We can use the same syntax to load sub-modules, as we mentioned in Lesson 7 in the example of the <code>path</code> module from the <code>os</code> package:</p>
+<pre><code class="language-console"># Version with loading the whole package os
+&gt;&gt;&gt; import os
+&gt;&gt;&gt; os.path.join(&quot;C:&quot;, &quot;my_path&quot;, &quot;my_file.txt&quot;)
+'C:\\my_path\\my_file.txt'
+
+# Version with only loading the path module
+&gt;&gt;&gt; from os import path
+&gt;&gt;&gt; path.join(&quot;C:&quot;, &quot;my_path&quot;, &quot;my_file.txt&quot;)
+'C:\\my_path\\my_file.txt'
+</code></pre>
+<p>Similarly, we can load all functions from a given module at once, but in the way mentioned above, ie actually each separately:</p>
+<pre><code class="language-python">from import_name import *
+</code></pre>
+<p>All functions or sub-modules of a given module are then accessible directly via their name, without specifying the module name. They are added directly to the global namespace. However, this practice is not recommended for the following reasons:</p>
+<ol>
+<li>We lose an overview of where the individual functions actually came from, ie whether we defined them ourselves, or from which module we load them.</li>
+<li>If several modules contain functions (or other objects) of the same name, but they do something different (this can easily happen in practice), we lose track of which of the functions we are actually calling.</li>
+<li>The names of the loaded functions (or other objects) are mixed with other names of the global namespace, so there may be a conflict between the names from the module and the names we created ourselves (eg some of our variables may be named the same as some function from the module).</li>
+</ol>
+<p>When loading a module, we can replace its name with our own, usually shorter name:</p>
+<pre><code class="language-python">import module_name as our_own_shorter_name
+our_own_shorter_name.function_name()
+</code></pre>
+<p>Example:</p>
+<pre><code class="language-console">&gt;&gt;&gt; import random as rnd
+&gt;&gt;&gt; rnd.random()
+0.5218355675703937
+</code></pre>
+<h2 id="how-to-create-your-own-module">How to create your own module</h2>
+<p>Creating a custom module is as easy as writing a script. It's actually the same. To illustrate, let's create a simple module called <code>mathlib</code>, which will contain two functions,<code>circle_area</code> and <code>circle_perimeter</code>. Create a script with the following code:</p>
+<pre><code class="language-python">&quot;&quot;&quot;This is a module with functions for calculating the area and perimeter of a circle.&quot;&quot;&quot;
+pi = 3.1416
+
+def circle_perimeter(r):
+&quot;&quot;&quot;This function calculates the perimeter of a circle of radius r.&quot;&quot;&quot;
+return 2*pi*r
+
+def circle_area(r):
+&quot;&quot;&quot;This function calculates the area of a circle of radius r.&quot;&quot;&quot;
+return pi*r*r
+</code></pre>
+<p>Then save the script to a working directory called <code>mathlib.py</code>. (Note that you can find out the current working directory using the <code>getcwd</code> function from the <code>os</code> module, or you can change it with the <code>chdir</code> function from the same module.)</p>
+<p>It is now possible to run the script normally (eg with the F5 keyboard shortcut) as we are used to running scripts. As a result, the contents of the script are loaded into the Python Shell console (and therefore accessible by browsing the command memory), so that the individual functions defined in the script are directly accessible under their name (but not accessible under the module name, because it did not actually load).</p>
+<p>Another option at the moment is to load the script as a module using the <code>import</code> command:</p>
+<pre><code class="language-console">&gt;&gt;&gt; import mathlib
+</code></pre>
+<p>Module functions and variables can now be accessed via the module name:</p>
+<pre><code class="language-console">&gt;&gt;&gt; import mathlib
+&gt;&gt;&gt; mathlib.pi
+3.1416
+&gt;&gt;&gt; mathlib.circle_perimeter(4)
+25.1328
+&gt;&gt;&gt; mathlib.circle_area(4)
+50.2656
+</code></pre>
+<p>It remains to explain what those text strings initiated with <code>"""</code> in the module are good for. These text strings are optional, ie the module and functions would work just as well without them. We have presented them in this example in order to show the possibility of writing documentation strings, which usually contain descriptive information about the purpose of the module or function. The documentation string, if it exists, can be called by calling the module or function name, the dot and the string <code>__doc__</code> (attention: there are always two underscores before and after the word <code>doc</code>):</p>
+<pre><code class="language-console">&gt;&gt;&gt; mathlib.__ doc__
+'This is a module with functions for calculating the area and perimeter of a circle.'
+&gt;&gt;&gt; mathlib.circle_area.__ doc__
+'This function calculates the area of a circle of radius r.'
+</code></pre>
+<p>If we modify an already loaded module and then reload it with the <code>import</code> command, the module will not actually be reloaded and the possible changes made in it will not take effect. This is because the <code>import</code> command first checks whether the module is not already loaded, and if not, loads it. If so, it will do nothing. To reload an already loaded module, you need to use the built-in <code>reload</code> function:</p>
+<pre><code class="language-console">&gt;&gt;&gt; reload(mathlib)
+&lt;module 'mathlib' from 'C:\Python25\math.pyc'&gt;
+</code></pre>
+<p>Now it remains to decide where to store the modules so that we can load them with the <code>import</code> command. If we call the <code>import</code> command and specify the name of a module, the interpreter will load the first module of the specified name, which it will find in the folders in which it searches for modules. These folders are stored in the <code>path</code> variable defined in the <code>sys</code> module. This variable contains a list of addresses to be searched for when loading modules. Of course, to call it, you must first load the <code>sys</code> module:</p>
+<pre><code class="language-console">&gt;&gt;&gt; import sys
+&gt;&gt;&gt; sys.path
+['C:\\Python25\\Lib\\idlelib', 'C:\\Program Files\\ArcGIS\\bin', 'C:\\WINDOWS\\system32\\python25.zip', 'C:\\Python25\\DLLs', 'C:\\Python25\\lib', 'C:\\Python25\\lib\\plat-win', 'C:\\Python25\\lib\\lib-tk', 'C:\\Python25', 'C:\\Python25\\lib\\site-packages']
+</code></pre>
+<p>The specific contents of the list will, of course, depend on the particular computer.</p>
+<p>If you want to add a folder to this list, you can change the <code>path</code> variable in the standard way that you work with lists:</p>
+<pre><code class="language-console">&gt;&gt;&gt; sys.path.append(&quot;C:\\My_Folder&quot;)
+&gt;&gt;&gt; sys.path
+['C:\\Python25\\Lib\\idlelib', 'C:\\Program Files\\ArcGIS\\bin', 'C:\\WINDOWS\\system32\\python25.zip', 'C:\\Python25\\DLLs', 'C:\\Python25\\lib', 'C:\\Python25\\lib\\plat-win', 'C:\\Python25\\lib\\lib-tk', 'C:\\Python25', 'C:\\Python25\\lib\\site-packages', 'C:\\My_Folder']
+</code></pre>
+<p>In this way we can add folders in which we have stored modules to the <code>path</code> variable. However, we will have to do this again and again whenever we start Python. Another option is to store modules in a folder that is already in the <code>path</code> variable list. However, this method is not suitable, because when reinstalling Python, these folders are usually deleted and with them everything they contain. It is therefore more appropriate, for example, to insert a command with the update of the <code>path</code> variable into the code of the program in which we want to load some custom modules.</p>
+<p>Another option is to store modules in the same folder in which the program itself (ie the "main script") is stored, because the current working folder (ie the folder from which a script is run) is always automatically added to the <code>path</code> variable).</p>
+<p>Another way to browse module folders is to use the <em>Path Browser</em>, located in the main menu of the Python Shell application under <em>File -&gt; Path Browser</em>. The browser window looks like this:</p>
+<p><img alt="image-20201102183750177" src="../images/image-20201102183750177.png" /></p>
+<h2 id="summary">Summary</h2>
+<h2 id="tasks">Tasks</h2>
+<ol>
+<li>Write a function that returns the maximum resp. minimum from the entered list of numbers (solve without using the built-in function <code>max</code> or<code>min</code>).</li>
+<li>Write a function that sorts the specified list of numbers in ascending order (solve without using the <code>sort</code> list method). (Hint: you can use eg the algorithm "sort by selection", "sort by insertion" or "bubble sort". For an overview of different approaches, see eg this <a href="https://cs.wikipedia.org/wiki/%C5%98adic%C3%AD_algoritmus">wikipedia link</a>.)</li>
+</ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../about_me/" class="btn btn-neutral float-right" title="About me...">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Lesson%2007%20Directories%20and%20text%20files/" class="btn btn-neutral" title="Lesson 7: Directories and text files"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../Lesson%2007%20Directories%20and%20text%20files/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../about_me/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
