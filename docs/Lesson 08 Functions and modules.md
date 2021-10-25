@@ -155,7 +155,7 @@ Variable and function names always exist in some **namespace**, sometimes **scop
 >>> a # Variable exists ...
 5
 >>>
-============================== RESTART: Shell =============== ===============
+============================== RESTART: Shell ==============================
 >>> a # After restarting the console, the variable in the global namespace is no longer:
 
 Traceback (most recent call last):

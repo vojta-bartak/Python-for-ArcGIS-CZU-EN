@@ -316,7 +316,7 @@ fact = 1
 i = 2
 while i &lt;= n:
     fact = fact * i
-i = i + 1
+    i = i + 1
 print(fact)
 </code></pre>
 <p>The condition for the continuation of the loop is the validity of the statement <code>i &lt;= n</code>. This statement will certainly cease to be valid once, because in each step the value of the variable <code>i</code> is increased by one unit, so that once it will definitely exceed the value of <code>n</code>. Once this happens, the loop will no longer be executed and the program will continue executing statements (if there are any) written after the loop, ie indented to the level of the word <code>while</code>. In our case, it prints the result to the Python Shell console:</p>
@@ -401,7 +401,7 @@ I won't interrupt the class with a loud croacking.
 <p>The above calculation of the factorial could therefore also look like this:</p>
 <pre><code class="language-python">n = 20
 fact = 1
-for i in range(n):
+for i in range(1, n+1):
     fact = fact * i
 print(fact)
 </code></pre>
