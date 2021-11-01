@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Vojta Barták">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Lesson 10: Running ArcPy tools - Python for ArcGIS</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Lesson 10: Running ArcPy tools";
+    var mkdocs_page_input_path = "Lesson 10 Running ArcPy tools.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Python for ArcGIS</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Model Builder</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2001%20Model%20Builder%20I/">Lesson 1: Model editting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2002%20Model%20Builder%20II/">Lesson 2: User environment</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Python</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2003%20Writing%20and%20running%20Python%20programs/">Lesson 3: Starting python</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lesson 04 Variables and data types">Lesson 4: Variables and data types</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2005%20Conditions%20and%20Loops/">Lesson 5: Loops and conditions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2006%20Interactive%20inputs%20and%20random%20numbers/">Lesson 6: Inputs and random numbers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2007%20Directories%20and%20text%20files/">Lesson 7: Directories and text files</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2008%20Functions%20and%20modules/">Lesson 8: Functions and modules</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 9 Třídy a objekty.md">Lekce 9: Třídy a objekty</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">ArcPy</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Lesson 10: Running ArcPy tools</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#running-tools-and-the-result-object">Running tools and the Result object</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#python-window-in-arcmap">Python Window in ArcMap</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-settings">Environment settings</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#license-management">License Management</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tasks">Tasks</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 11 Procházení geodat a jejich vlastností pomocí balíčku ArcPy.md">Lekce 11: Procházení a prohlížení geodat</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 12 Uživatelská rozhraní nástrojů.md">Lekce 12: Uživatelská rozhraní</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 15 Procházení tabulek pomocí kurzorů.md">Lekce 15: Kurzory</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 18 Rastrové analýzy.md">Lekce 18: Rastrové analýzy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about_me/">About me...</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tests_upload/">Tests and homeworks</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Python for ArcGIS</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>ArcPy &raquo;</li>
+        
+      
+    
+    <li>Lesson 10: Running ArcPy tools</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/edit/master/docs/Lesson 10 Running ArcPy tools.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="lesson-10-running-arcgis-tools-using-the-arcpy-package">Lesson 10: Running ArcGIS tools using the ArcPy package</h1>
+<p>This lesson introduces the <code>arcpy</code> package, which provides ArcGIS functionality for use within Python. This includes - among many other things - the ability to run individual tools from ArcToolbox directly from a script without having to run ArcGIS (eg ArcMap) at all (but of course it must be installed). The <code>arcpy</code> package is distributed with ArcGIS. However, you need to be careful about the correct version: Python 2.7 is still used in the ArcGIS Desktop 10.X series (and it is also distributed with the program). In ArcGIS Pro, on the other hand, the latest series of Python is used, ie 3.X. However, having multiple versions of Python on your computer and always using the one you need shouldn't be a big deal.</p>
+<p>In this lesson we will use [data] (https://owncloud.cesnet.cz/index.php/s/YlaMGKuRZ0NIb2e) from the Liberec region.</p>
+<h2 id="running-tools-and-the-result-object">Running tools and the <em>Result</em> object</h2>
+<p>The first step in making ArcGIS available to Python is to load the <code>arcpy</code> module:</p>
+<pre><code class="language-python">import arcpy
+</code></pre>
+<p>If we then want to run a tool from ArcToolbox, eg the <em>Clip</em> tool, the syntax is usually as follows:</p>
+<pre><code class="language-python">arcpy.&lt;ToolName&gt;_&lt;toolbox_alias&gt;(&lt;tool_arguments&gt;)
+</code></pre>
+<p>It is important to specify the alias of the respective toolbox, because there may be tools of the same name in different toolboxes, but they do something different (a good example is the <em>Clip</em> tool). The alias of the toolbox can be easily found in its properties (right click on the toolbox in ArcMap and select <em>Properties</em>). In the case of the <em>Clip</em> tool from the <em>Analysis Tools -&gt; Extract</em> toolset, the command will look like this:</p>
+<pre><code class="language-python">arcpy.Clip_analysis(r&quot;C:\path\to\layer\I_want_to_clip.shp&quot;, r&quot;C:\clip\layer.shp&quot;, r&quot;C:\path\of\the\result.shp&quot;)
+</code></pre>
+<p>The syntax of the individual tools is always given on the corresponding ArcGIS help page, where there is always a section <em>Syntax</em> with an explanation of all parameters and a section <em>Code sample</em> with an example of use. Using help should become commonplace for you. In the case of the <em>Clip</em> tool, the relevant sections look like this:</p>
+<p><img alt="image-20201114140158549" src="../images/image-20201114140158549.png" /></p>
+<blockquote>
+<p><strong>Task 1.</strong> Use the <em>Clip</em> tool (either in a script or on the Python Shell console) to find the part of the road network that is located in the woods.</p>
+</blockquote>
+<p>As can be seen, the tools from ArcToolbox are implemented in the <code>arcpy</code> module in the form of functions. What is the return value of these functions? In the vast majority of cases (does not apply to raster tools, as will be explained later), the return value is an object of class <em>Result</em>. It is possible to "capture" this object to a variable when running the tool and then continue working with it:</p>
+<pre><code class="language-python">clip_output = arcpy.Clip_analysis(r&quot;C:\path\to\layer\I_want_to_clip.shp&quot;, 
+                                  r&quot;C:\clip\layer.shp&quot;, 
+                                  r&quot;C:\path\of\the\result.shp&quot;)
+</code></pre>
+<p>The <em>Result</em> object represents a record of the tool's calculation progress, corresponding to what you know from the <em>Results</em> window in ArcMap. What does this object (or the relevant class) actually contain? The best answer will give us help again. In the ArcGIS help system, find the section <em>Analyze -&gt; ArcPy -&gt; ArcPy Classes -&gt; General -&gt; Result</em>:</p>
+<p><img alt="image-20201114141044240" src="../images/image-20201114141044240.png" /></p>
+<p>In the help for this class we see the following sections: <em>Summary</em> (basic description of what the class is for), <em>Discussion</em> (further detail), <em>Syntax</em> (description of how a function of the same name - the so-called <em>constructor</em> of the class - can create a specific object of this class; this will not be needed in practice for <em>Result</em> objects), <em>Properties</em> (list of class properties - important!), <em>Methods Overview</em> (overview of class methods - important!), <em>Methods</em> (details of individual methods - important!) and <em>Code sample</em> (code samples of how the class is used - useful!).</p>
+<blockquote>
+<p><strong>Task 2.</strong> Study the help for the <em>Result</em> class and try to understand at least some of its properties and methods.</p>
+</blockquote>
+<p>Demonstrate content - output address, messages ...</p>
+<p>Buffer ...</p>
+<p>Number of elements using GetCount ...</p>
+<h2 id="python-window-in-arcmap">Python Window in ArcMap</h2>
+<p>Run Clip ... links to map document ...</p>
+<h2 id="environment-settings">Environment settings</h2>
+<p>The env class and what it contains ...</p>
+<blockquote>
+<p><strong>Task X.</strong> Use the <code>arcpy</code> module to change the working directory of ArcGIS.</p>
+</blockquote>
+<p>in_memory ...</p>
+<p>More settings ... overwriting layers ...</p>
+<p>The second way ...</p>
+<h2 id="license-management">License Management</h2>
+<p>turning licenses on and off ...</p>
+<h2 id="summary">Summary</h2>
+<h2 id="tasks">Tasks</h2>
+<ol>
+<li>MutliBuffer ...</li>
+</ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../about_me/" class="btn btn-neutral float-right" title="About me...">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Lesson%2008%20Functions%20and%20modules/" class="btn btn-neutral" title="Lesson 8: Functions and modules"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../Lesson%2008%20Functions%20and%20modules/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../about_me/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
