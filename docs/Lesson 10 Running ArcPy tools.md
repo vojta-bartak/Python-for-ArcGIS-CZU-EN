@@ -2,7 +2,7 @@
 
 This lesson introduces the `arcpy` package, which provides ArcGIS functionality for use within Python. This includes - among many other things - the ability to run individual tools from ArcToolbox directly from a script without having to run ArcGIS (eg ArcMap) at all (but of course it must be installed). The `arcpy` package is distributed with ArcGIS. However, you need to be careful about the correct version: Python 2.7 is still used in the ArcGIS Desktop 10.X series (and it is also distributed with the program). In ArcGIS Pro, on the other hand, the latest series of Python is used, ie 3.X. However, having multiple versions of Python on your computer and always using the one you need shouldn't be a big deal.
 
-In this lesson we will use [data] (https://owncloud.cesnet.cz/index.php/s/YlaMGKuRZ0NIb2e) from the Liberec region.
+In this lesson we will use [data](https://owncloud.cesnet.cz/index.php/s/YlaMGKuRZ0NIb2e) from the Liberec region.
 
 ## Running tools and the *Result* object
 

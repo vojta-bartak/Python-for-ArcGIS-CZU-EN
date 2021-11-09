@@ -19,7 +19,7 @@ nav:
     - ArcPy:
         - 'Lesson 10: Running ArcPy tools': 'Lesson 10 Running ArcPy tools.md'
         - 'Lekce 11: Procházení a prohlížení geodat': 'Lekce 11 Procházení geodat a jejich vlastností pomocí balíčku ArcPy.md'
-        - 'Lekce 12: Uživatelská rozhraní': 'Lekce 12 Uživatelská rozhraní nástrojů.md'
+        - 'Lesson 12: Tool user interfaces': 'Lesson 12 Tool user interfaces.md'
         - 'Lekce 15: Kurzory': 'Lekce 15 Procházení tabulek pomocí kurzorů.md'
         - 'Lekce 18: Rastrové analýzy': 'Lekce 18 Rastrové analýzy.md'
     - About me...: about_me.md
