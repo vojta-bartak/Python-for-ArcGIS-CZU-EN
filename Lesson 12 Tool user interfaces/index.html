@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Vojta Barták">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Lesson 12: Tool user interfaces - Python for ArcGIS</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Lesson 12: Tool user interfaces";
+    var mkdocs_page_input_path = "Lesson 12 Tool user interfaces.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Python for ArcGIS</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Model Builder</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2001%20Model%20Builder%20I/">Lesson 1: Model editting</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2002%20Model%20Builder%20II/">Lesson 2: User environment</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Python</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2003%20Writing%20and%20running%20Python%20programs/">Lesson 3: Starting python</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lesson 04 Variables and data types">Lesson 4: Variables and data types</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2005%20Conditions%20and%20Loops/">Lesson 5: Loops and conditions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2006%20Interactive%20inputs%20and%20random%20numbers/">Lesson 6: Inputs and random numbers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2007%20Directories%20and%20text%20files/">Lesson 7: Directories and text files</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2008%20Functions%20and%20modules/">Lesson 8: Functions and modules</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 9 Třídy a objekty.md">Lekce 9: Třídy a objekty</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">ArcPy</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2010%20Running%20ArcPy%20tools/">Lesson 10: Running ArcPy tools</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 11 Procházení geodat a jejich vlastností pomocí balíčku ArcPy.md">Lekce 11: Procházení a prohlížení geodat</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Lesson 12: Tool user interfaces</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#simple-interface">Simple interface</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#messages">Messages</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#multiple-and-output-parameters">Multiple and output parameters</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#derived-parameters">Derived parameters</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#help">Help</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#concluding-remarks">Concluding remarks</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tasks">Tasks</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 15 Procházení tabulek pomocí kurzorů.md">Lekce 15: Kurzory</a>
+                    </li>
+                    <li class="toctree-l1"><a class="" href="../Lekce 18 Rastrové analýzy.md">Lekce 18: Rastrové analýzy</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about_me/">About me...</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../tests_upload/">Tests and homeworks</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Python for ArcGIS</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>ArcPy &raquo;</li>
+        
+      
+    
+    <li>Lesson 12: Tool user interfaces</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/edit/master/docs/Lesson 12 Tool user interfaces.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="lesson-12-tool-user-interfaces">Lesson 12: Tool User Interfaces</h1>
+<p>In this chapter, we'll create a user interface for a script that uses ArcGIS tools. As a result, our tool will look and behave similar to other built-in tools in ArcToolbox. You already know from Lesson 2 how to create user interfaces to models from Model Builder. This is analogical.</p>
+<h2 id="simple-interface">Simple interface</h2>
+<p>We'll create a tool with a simple example of the <em>BatchClip</em> tool you created in Lesson 10 (see Task X). The relevant script can look like this:</p>
+<pre><code class="language-python">import arcpy, os.path
+
+# Input parameters
+input_folder = r&quot;C:\path\to\folder\with\input\data&quot;
+clip_features = r&quot;C:\path\to\clip\polygon\dataset.shp&quot;
+output_folder = r&quot;C:\path\to\folder\with\clipped\datasets&quot;
+
+# Environment settings
+arcpy.env.workspace = input_folder
+arcpy.env.overwriteOutput = True
+
+# Batch processing with the Clip tool
+shps = arcpy.ListFeatureClasses()
+for shp in shps:
+    output = os.path.join(output_folder, shp[:-4] + &quot;_clipped.shp&quot;)
+    arcpy.Clip_analysis(shp, clip_features, output)
+</code></pre>
+<blockquote>
+<p><strong>Task 1.</strong> Read the script so that you have understand clearly the meaning of each line. Test in practice that the script works.</p>
+</blockquote>
+<p>Creating a user interface for the script means ensuring that the input parameters (deliberately listed at the beginning of the script in a separate section <code>Input parameters</code>) can be entered by the user in some friendly graphical interface before running. Its creation has two parts: (1) preparation of the graphical interface itself and (2) modification of the script so that it communicates with this interface.</p>
+<p>The creation of the graphical interface begins in the <em>Catalog</em> window of the <em>ArcMap</em> program. The tool - as in the case of Model Builder - must exist in some toolbox. So if you don't have one ready, you need to create it now:</p>
+<p><img alt="image-20201116115747161" src="../images/image-20201116115747161.png" /></p>
+<p>(Of course, we can have multiple tools stored in one toolbox.)</p>
+<p>After creating the toolbox, we will add a new tool to it by right-clicking on it and selecting <em>Add -&gt; Script</em>:</p>
+<p><img alt="image-20201116124148539" src="../images/image-20201116124148539.png" /></p>
+<p>This will open the <em>Add Script</em> dialog box, which will guide you through creating a graphical interface. On the first page, enter the name (<em>Name</em>) and label (<em>Label</em>) of the tool. While the name should not contain any special characters and spaces, the label will be how the tool will appear in the toolbox (so it can contain spaces and special characters). In the parameter <em>Description</em> it is possible to enter a brief description of the tool operation, which will be displayed in the tool window. The <em>Stylesheet</em> parameter allows you to select a non-default interface style, including custom user-defined styles. We will not deal with custom styles here, we will use the default style (ie leave the field blank). The last two parameters, the <em>Store relative pathnames</em> and <em>Always run in foreground</em>, are good to check both. The first will cause the path to the script (which we will enter in the next step) to be taken relative to the position of the toolbox. This will facilitate any possible distribution of the tool to other computers. The second option ensures that the tool always runs in the foreground (not in the background), which is generally a safer and more stable option.</p>
+<p><img alt="image-20201116125524225" src="../images/image-20201116125524225.png" /></p>
+<p>After clicking on <em>Next</em>, the path to the script itself is entered in the next window. It is a good practice to have the script stored in the same folder in which we have the toolbox.</p>
+<p><img alt="image-20201116133326472" src="../images/image-20201116133326472.png" /></p>
+<p>The following page enters the tool parameters. At the top is a table with parameters, at the bottom are the properties of the selected parameter. Start typing the parameter name in the left column of the table. Then select its type in the right column. The first parameter will be "Input Workspace", ie the folder with input layers. The type of this parameter can be either <em>Folder</em> or <em>Workspace</em>. If we choose the first option, the tool will be able to work only in the classic folder with shapefiles. The second option, <em>Workspace</em>, is more general and includes a file geodatabase and other types of ArcGIS workspaces in addition to classic folders, so the tool will be able to trim all vector layers in a geodatabase or its dataset (<em>Feature Dataset</em>). It is therefore more advantageous to choose this second option. For this parameter, all the default values ​​of the properties (at the bottom of the window) are satisfactory (go through them and try to judge what the meaning of each property is).</p>
+<p><img alt="image-20201116134416440" src="../images/image-20201116134416440.png" /></p>
+<p>Another parameter will be the clipping dataset or layer ("Clip Features"). Its type could be <em>Shapefile</em>, <em>Feature Class</em> or <em>Feature Layer</em>. The second option is again more general than the first and allows you to work not only with shapefiles, but also with layers in a geodatabase. However, the third option is the best, because in addition to the above options, it also allows you to work with layers in ArcMap. Therefore, if we select it (and we do select it), the tool will automatically offer a list of currently loaded layers from the map document to the appropriate parameter.</p>
+<p>It is also advisable to set the so-called <em>Filter</em> for the parameter <em>Clip Features</em>, which will not allow the user to enter a geometric type other than polygon. The appropriate setting is made in the parameter properties, property <em>Filter</em>.</p>
+<p><img alt="image-20201116135018604" src="../images/image-20201116135018604.png" /></p>
+<p>Clicking on <em>Feature Class</em> opens a window with check boxes where you only need to leave the "Polygon" option checked:</p>
+<p><img alt="image-20201116135113491" src="../images/image-20201116135113491.png" /></p>
+<p>The last parameter will be <em>Output Workspace</em>, ie the folder (or geodatabase) where the output datasets will be stored. Again, this will be a <em>Workspace</em> type with default property settings. Now we have the parameters set and we can click on <em>Finish</em>. After opening the tool from <em>Catalog</em>, we see a ready-to-use user interface:</p>
+<p><img alt="image-20201116135503743" src="../images/image-20201116135503743.png" /></p>
+<p>It remains to arrange that the parameter values ​​entered by the user in the graphical interface are passed to the script. The <code>GetParameterAsText</code> function from the <code>arcpy</code> package is used for this. When you run the tool, this function reads the value from the user interface and returns it as a text string. (<em>Note: In our case, all parameters are text - see the script at the beginning of the lesson - so passing them in the form of text is what we need. However, if we want to enter numbers or other data types in some parameters, the parameter value received from the</em> <code>GetParamaterAsText</code> <em>function must be then converted to the appropriate data type.</em>)</p>
+<p>The only argument to the <code>GetParameterAsText</code> function is the index or order of the parameter to be read. The order of the parameters corresponds to how we arranged them in the graphical interface. Therefore, the header of our script will now look like this:</p>
+<pre><code class="language-python">import arcpy, os.path
+
+# Input parameters
+input_folder = arcpy.GetParameterAsText(0)
+clip_features = arcpy.GetParameterAsText(1)
+output_folder = arcpy.GetParameterAsText(2)
+
+# Environment settings
+arcpy.env.workspace = input_folder
+arcpy.env.overwriteOutput = True
+
+# Batch processing with the Clip tool
+shps = arcpy.ListFeatureClasses()
+for shp in shps:
+    output = os.path.join(output_folder, shp[:-4] + &quot;_clipped.shp&quot;)
+    arcpy.Clip_analysis(shp, clip_features, output)
+</code></pre>
+<p>Now the tool is ready and we can run it.</p>
+<blockquote>
+<p><strong>Task 2.</strong> Create an interface to <em>BatchClip</em> as described and test the tool.</p>
+</blockquote>
+<h2 id="messages">Messages</h2>
+<p>Sometimes it is useful if we have messages embedded in the script that are output at a certain stage of the calculation (eg on the Python Shell console). This is especially advantageous in two cases:</p>
+<ul>
+<li>If the calculation is long and includes a number of steps, or a cycle, it is possible to report at the beginning of each step or iteration of the cycle what the program is doing. So we will have an overview of what stage of the calculation we are at. In addition, if the program fails at some stage and ends with an error message, we will know at what stage of the calculation it was and where to look for an error in the code.</li>
+<li>The second situation is if our program does not work properly and we do not know where the error is. If, for example, we suspect that at a certain stage a variable does not contain the value it should have, we can have the content of this variable reported at the given moment of the calculation. This can be very helpful in finding where we made a mistake.</li>
+</ul>
+<p>In the case of our simple tool <em>BatchClip</em>, for example, we might want information about the layer the program is currently processing to be output in each round of the cycle. To print to standard output (eg the Python Shell console), simply use the <code>print</code> function:</p>
+<pre><code class="language-python">import arcpy, os.path, sys
+
+# Input parameters
+input_folder = r&quot;C:\path\to\folder\with\input\data&quot;
+clip_features = r&quot;C:\path\to\clip\polygon\dataset.shp&quot;
+output_folder = r&quot;C:\path\to\folder\with\clipped\datasets&quot;
+
+# Environment settings
+arcpy.env.workspace = input_folder
+arcpy.env.overwriteOutput = True
+
+# Batch processing with the Clip tool
+shps = arcpy.ListFeatureClasses()
+for shp in shps:
+
+    print (&quot;Working on &quot; + shp + &quot;...&quot;)
+    sys.__stdout__.flush()
+
+    output = os.path.join(output_folder, shp [:-4] + &quot;_clipped.shp&quot;)
+    arcpy.Clip_analysis(shp, clip_features, output)
+</code></pre>
+<p>The strange line <code>sys.__stdout__.flush()</code> ensures that the print is done really immediately. If we don't include this line, often nothing bad will happen and the code will work as it should. Sometimes, however, prints are delayed, so all calculations are performed first, and then all messages are written to the console at once. As a result, interim reports are no longer ongoing and lose their meaning. The <code>__stdout__</code> object from the <code>sys</code> module (note that this module had to be loaded at the beginning of the script!) represents the so-called <em>standard output</em>, which in our case is the Python Shell console. Its <code>flush</code> method then "spills" or "flushes" all processes that are currently waiting in the process queue.</p>
+<p>How can similar messages be sent to the tool calculation window in ArcMap? The classic <code>print</code> no longer works here, however, the <code>AddMessage</code> function of the <code>arcpy</code> package will do a similar job. So we modify the tool script as follows:</p>
+<pre><code class="language-python">import arcpy, os.path
+
+# Input parameters
+input_folder = arcpy.GetParameterAsText(0)
+clip_features = arcpy.GetParameterAsText(1)
+output_folder = arcpy.GetParameterAsText(2)
+
+# Environment settings
+arcpy.env.workspace = input_folder
+arcpy.env.overwriteOutput = True
+
+# Batch processing with the Clip tool
+shps = arcpy.ListFeatureClasses()
+for shp in shps:
+
+    arcpy.AddMessage(&quot;Working on &quot; + shp + &quot;...&quot;)
+
+    output = os.path.join(output_folder, shp[:-4] + &quot;_clipped.shp&quot;)
+    arcpy.Clip_analysis(shp, clip_features, output)
+</code></pre>
+<p>The interim statement in the calculation now looks like this:</p>
+<p><img alt="image-20201116144325079" src="../images/image-20201116144325079.png" /></p>
+<blockquote>
+<p><strong>Task 3.</strong> Add the runtime messages to <em>BatchClip</em> as described above and test.</p>
+</blockquote>
+<h2 id="multiple-and-output-parameters">Multiple and output parameters</h2>
+<p>There are a large number of different types of parameters and their properties. We will show some of them on the example of another tool, which is to make a common single buffer zone with a specified radius for multiple input datasets, possibly of different geometry types. In other words, individual buffer zones around the input layers should be combined into a single layer. Further, the spatially non-overlapping parts should be in separate polygons, while the spatially overlapping parts of the buffer zone should be combined into a single polygon.</p>
+<p>If we had a point, line and polygon layer at the input as in this picture:</p>
+<p><img alt="" src="../images/super_buffer_input.png" /></p>
+<p>the output layer should look something like this:</p>
+<p><img alt="" src="../images/super_buffer_output.png" /></p>
+<p>The script that handles this task might look something like this:</p>
+<pre><code class="language-python">import arcpy
+
+# Input parameters
+feature_list = [r&quot;C:\...\dataset1.shp&quot;, r&quot;C:\...\dataset2.shp&quot;, ...]
+buffer_distance = 100
+output_features = r&quot;C:\...\output_dataset.shp&quot;
+
+# Environments settings
+arcpy.env.workspace = &quot;in_memory&quot;
+arcpy.env.overwriteOutput = True
+
+# Buffer zones
+buffers = []
+for fc in feature_list:
+    b = arcpy.Buffer_analysis(fc, fc + &quot;_buffer&quot;, buffer_distance)
+    buffers.append(b)
+
+# Union of buffer zones
+u = arcpy.Union_analysis(buffers, &quot;union&quot;)
+arcpy.Dissolve_management(u, output_features, &quot;&quot;, &quot;&quot;, &quot;SINGLE_PART&quot;)
+</code></pre>
+<p>Let's look at a few things here:</p>
+<ul>
+<li>The working directory was initially set to <code>"in_memory"</code>. As a result, all intermediate outputs (ie, all <em>Buffer</em> and <em>Union</em> outputs) will be temporarily stored in RAM and not on the hard disk. Only the final output from the <em>Dissolve</em> tool is explicitely saved on disk, ie to the location specified in the <code>output_features</code> parameter.</li>
+<li>The <code>buffers</code> list, in which the results of individual buffer zones are stored, contains <em>Result</em> objects. However, these can be used as inputs to further analyzes.</li>
+<li>In the <em>Union</em> tool, multiple input (list of layers to join) is entered as a Python list (what other tools with multiple input parameters do you know?).</li>
+<li>In the <em>Dissolve</em> tool, the <em>multi_part</em> parameter is set to "SINGLE_PART" (see the help for this tool!). Since this parameter is up to the fifth in a row and is preceded by two optional parameters for which we want to keep the default values, there are empty strings in place of these parameters.</li>
+</ul>
+<blockquote>
+<p><strong>Task 4.</strong> Test the above script on real data.</p>
+</blockquote>
+<p>We will now create a user interface for the tool. We proceed as in the previous case: we add a new script to our toolbox and go through a dialog box with the name, location of the script and a table of parameters. It will look something like this:</p>
+<p><img alt="image-20201116155635815" src="../images/image-20201116155635815.png" /></p>
+<p>We will now focus on the properties of the individual parameters. The first parameter - <em>Input Feature Classes</em> - is of type <em>Feature Layer</em>, but we must arrange it to allow the input of multiple input layers. To do this, use the <em>MutliValue</em> property, which must be set to "Yes":</p>
+<p><img alt="image-20201116155928363" src="../images/image-20201116155928363.png" /></p>
+<p>The <em>Buffer Distance</em> parameter is of type <em>Double</em>, the <em>Output Buffer Zone Features</em> parameter is of type <em>Feature Layer</em>. For the last parameter, the <em>Direction</em> property must be set to "Output", because the relevant layer does not yet exist at the time the tool is started and will be created by the tool itself:</p>
+<p><img alt="image-20201116160202017" src="../images/image-20201116160202017.png" /></p>
+<p>The user interface of the tool now looks like this:</p>
+<p><img alt="image-20201116160340309" src="../images/image-20201116160340309.png" /></p>
+<p>Now you still need to edit the script and use the <code>GetParameterAsText</code> function to pass the parameters to the script:</p>
+<pre><code class="language-python">import arcpy
+
+# Input parameters
+feature_list = arcpy.GetParameterAsText(0).split(&quot;;&quot;)
+buffer_distance = float(arcpy.GetParameterAsText(1))
+output_features = arcpy.GetParameterAsText(2)
+
+# Environments settings
+arcpy.env.workspace = &quot;in_memory&quot;
+arcpy.env.overwriteOutput = True
+
+# Buffer zones
+buffers = []
+for fc in feature_list:
+    b = arcpy.Buffer_analysis(fc, fc + &quot;_buffer&quot;, buffer_distance)
+    buffers.append(b)
+
+# Union of buffer zones
+u = arcpy.Union_analysis(buffers, &quot;union&quot;)
+arcpy.Dissolve_management(u, output_features, &quot;&quot;, &quot;&quot;, &quot;SINGLE_PART&quot;)
+</code></pre>
+<p>Note two things:</p>
+<ul>
+<li>In the <code>feature_list</code> parameter, the <code>GetParameterAsText</code> function passes the individual input layers/datasets as a single text string, in which the addresses of the individual input layers are separated by semicolons. (This is because we have set the <em>MultiValue</em> property of the parameter to "Yes" in the GUI.) The <code>split(";")</code> method called on this string creates a Python list from it, which can then be looped through to create individual buffer zones.</li>
+<li>For the <em>buffer_distance</em> parameter, the value returned by the <code>GetParameterAsText</code> function must be converted to the numeric type by the <code>float</code> function, otherwise it would be a text string. (In fact, <em>Buffer</em> would accept text input as well, but in many other cases, the text output of the <code>GetParameterAsText</code> function needs to be converted to another data type.)</li>
+</ul>
+<blockquote>
+<p><strong>Task 5.</strong> Create the specified tool and test its functionality.</p>
+</blockquote>
+<p><em>Final remark:</em> The <em>Buffer Distance</em> parameter is of the <em>Double</em> type, but we could also advantageously use the <em>Linear unit</em> parameter type, which also offers a choice of units. In this case, however, the parameter value passed by the <code>GetParameterAsText</code> function cannot be converted to a number, as it will be a text like <code>"100 Meters"</code> or similar. However, it can be used directly as input to the <em>Buffer</em> tool.</p>
+<p>The tool interface with a parameter of type <em>Linear unit</em> will look like this:</p>
+<p><img alt="image-20201116165646450" src="../images/image-20201116165646450.png" /></p>
+<h2 id="derived-parameters">Derived parameters</h2>
+<p>Convert vector layer to raster ...</p>
+<h2 id="help">Help</h2>
+<h2 id="concluding-remarks">Concluding remarks</h2>
+<h2 id="summary">Summary</h2>
+<h2 id="tasks">Tasks</h2>
+<ol>
+<li>Create a user interface for MultiBuffer.</li>
+</ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../about_me/" class="btn btn-neutral float-right" title="About me...">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Lesson%2010%20Running%20ArcPy%20tools/" class="btn btn-neutral" title="Lesson 10: Running ArcPy tools"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../Lesson%2010%20Running%20ArcPy%20tools/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../about_me/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
