@@ -84,6 +84,18 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#read-rows-using-the-search-cursor">Read rows using the Search cursor</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#overwrite-values-in-a-row-with-update-cursor">Overwrite values in a row with Update cursor</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#delete-a-row">Delete a row</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#add-a-new-line-with-insert-cursor">Add a new line with Insert cursor</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#old-cursor-types">Old cursor types</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#exercises">Exercises</a>
+    </li>
     </ul>
                     </li>
                     <li class="toctree-l1"><a class="" href="../Lekce 18 Rastrové analýzy.md">Lekce 18: Rastrové analýzy</a>
@@ -161,6 +173,149 @@
 </ul>
 <p>The cursor contains other parameters (shown in the example by three dots), but we will leave them aside here.</p>
 <p>The cursor can be browsed directly by a <code>for</code> cycle. The iteration variable goes through the individual lines and always takes a value of a tuple of length <em>n</em>, ie the same length as the the number of open fields. Let's look at an example of opening the "CATEGORY" and "NAME" attributes of the dataset of cities:</p>
+<pre><code class="language-python">import arcpy
+arcpy.env.workspace = r&quot;C:\my_path\...&quot;
+tab = arcpy.da.SearchCursor(&quot;Sidla_body.shp&quot;, [&quot;NAZEV&quot;, &quot;KATEGORIE&quot;])
+for r in tab:
+    print(r)
+del(tab)
+</code></pre>
+<p>After running the script we get the following output:</p>
+<pre><code class="language-console">(u'Praha', 1)
+(u'Brno', 2)
+(u'Plze\u0148', 2)
+(u'Ostrava', 2)
+(u'Karlovy Vary', 3)
+(u'Zl\xedn', 3)
+(u'Chomutov', 3)
+(u'Most', 3)
+(u'\xdast\xed nad Labem', 3)
+(u'Kladno', 3)
+(u'Hradec Kr\xe1lov\xe9', 3)
+(u'Karvin\xe1', 3)
+(u'Pardubice', 3)
+(u'Fr\xfddek-M\xedstek', 3)
+(u'Hav\xed\u0159ov', 3)
+(u'Liberec', 3)
+(u'\u010cesk\xe9 Bud\u011bjovice', 3)
+(u'Olomouc', 3)
+</code></pre>
+<p>Because each row is represented by a tuple, we can access the individual items (ie columns) of it using indexes:</p>
+<pre><code class="language-python"># -*- coding: cp1250 -*-
+
+import arcpy
+arcpy.env.workspace = r&quot;C:\my_path\...&quot;
+tab = arcpy.da.SearchCursor(&quot;Sidla_body.shp&quot;, [&quot;NAZEV&quot;, &quot;KATEGORIE&quot;])
+for r in tab:
+    print(u&quot;City of the category &quot; + str(r[1]) + &quot; is called &quot; + r[0] + &quot;.&quot;)
+del(tab)
+</code></pre>
+<p>The output is:</p>
+<pre><code class="language-console">City of the category 1 is called Praha.
+City of the category 2 is called Brno.
+City of the category 2 is called Plzeň.
+City of the category 2 is called Ostrava.
+City of the category 3 is called Karlovy Vary.
+City of the category 3 is called Zlín.
+City of the category 3 is called Chomutov.
+City of the category 3 is called Most.
+City of the category 3 is called Ústí nad Labem.
+City of the category 3 is called Kladno.
+City of the category 3 is called Hradec Králové.
+City of the category 3 is called Karviná.
+City of the category 3 is called Pardubice.
+City of the category 3 is called Frýdek-Místek.
+City of the category 3 is called Havířov.
+City of the category 3 is called Liberec.
+City of the category 3 is called České Budějovice.
+City of the category 3 is called Olomouc.
+</code></pre>
+<p>Notice that when opening the table, we have changed the order of the columns compared to how the table appears in ArcGIS. When opening a table with the cursor, we can select any columns in any order, we can even open one column in several copies (which rarely has a good reason). When reading values from a row, the order of the items is exactly the order in which we sorted the columns when creating the cursor.</p>
+<p>In the previous example, we did not use the optional parameter <em>where_clause</em>, which we can use to restrict which rows are to be read. For example, if we only wanted to open records for first and second category cities, the code would look like this:</p>
+<pre><code class="language-python">import arcpy
+arcpy.env.workspace = r&quot;C:\my_path\...&quot;
+tab = arcpy.da.SearchCursor(&quot;Sidla_body.shp&quot;, [&quot;NAZEV&quot;], '&quot;KATEGORIE&quot; &lt; 3')
+for r in tab:
+    print(r[0])
+del(tab)
+</code></pre>
+<p>The result:</p>
+<pre><code class="language-console">Praha
+Brno
+Plzeň
+Ostrava
+</code></pre>
+<p>The <code>for</code> loop is not the only way to browse a table. If we only want to make a single one row move in the table, we can use the cursor method <code>next</code>, which returns the current row and at the same time moves the cursor position to the next row. In this way, for example, it is possible to read the contents of the, say, eighteenth line:</p>
+<pre><code class="language-python">import arcpy
+arcpy.env.workspace = r&quot;C:\my_path\CR_kraje_sidla_toky&quot;
+tab = arcpy.da.SearchCursor(&quot;Sidla_body.shp&quot;, [&quot;NAZEV&quot;, &quot;KATEGORIE&quot;])
+for i in range(18):
+    r = tab.next()
+print(r)
+del(tab)
+</code></pre>
+<pre><code class="language-console">(u'Olomouc', 3)
+</code></pre>
+<p>When browsing the table, the cursor can only be moved forward. If we get to the end of the table (either by the <code>for</code> loop or the<code>next</code> method), the table can no longer be browsed. To do this, you must recreate the cursor.</p>
+<p>Finally, let's look at how to avoid the necessity of explicit deletion of the cursor after use, thanks to the <code>with</code> clause, which you know (in a similar context) from the lesson on text files:</p>
+<pre><code class="language-python">import arcpy
+arcpy.env.workspace = r&quot;C:\my_path\...&quot;
+with arcpy.da.SearchCursor(&quot;Sidla_body.shp&quot;, [&quot;NAZEV&quot;], '&quot;KATEGORIE&quot; &lt; 3') as tab:
+    for r in tab:
+        print(r[0])
+# Here the table is closed and the cursor object deleted
+</code></pre>
+<blockquote>
+<p><strong>Task 2</strong>. Open the table of regions and write down their names and population numbers.</p>
+<p><strong>Task 3.</strong> Use the cursor to find the region with the largest number of women over men.</p>
+<p><strong>Task 4.</strong> Use the cursor to calculate the shape index (perimeter divided by the area) of each polygon. (Hint: first add the "Area" and "Perimeter" fields to the table and use the <em>Calculate Field</em> tool to calculate their values. Then use the cursor to read the table and divide these values.)</p>
+</blockquote>
+<h2 id="overwrite-values-in-a-row-with-update-cursor">Overwrite values in a row with <em>Update</em> cursor</h2>
+<p>If we want to not only read the contents of the table, but also change them, we use the <em>Update</em> cursor. The syntax is practically the same as for the <em>Search</em> cursor:</p>
+<pre><code class="language-python">tab = arcpy.da.UpdateCursor(&quot;Sidla_body.shp&quot;, [&quot;NAZEV&quot;, &quot;KATEGORIE&quot;])
+</code></pre>
+<p>The difference is what methods the respective cursor has available (in the previous section we used, for example, the <code>next</code> method, which is also available in the <em>Update</em> cursor). A new method, specific for the <em>Update</em> cursor, is the <em>updateRow</em> method, which can be used to replace the line on which the cursor is located with another line. This must be passed to the method in the form of a tuple or list of an appropriate length, while the individual items and their data types must correspond to the open columns.</p>
+<p>In the following example, we will change the category of the city of Brno from 2 to 3 (this does not indicate anything bad about this city!):</p>
+<pre><code class="language-python">import arcpy
+arcpy.env.workspace = r&quot;C:\my_path\CR_kraje_sidla_toky&quot;
+tab = arcpy.da.UpdateCursor(&quot;Sidla_body.shp&quot;, [&quot;NAZEV&quot;, &quot;KATEGORIE&quot;], 
+                            '&quot;NAZEV&quot; = \'Brno\'')
+tab.next()
+tab.updateRow((&quot;Brno&quot;, 3))
+del(tab)
+</code></pre>
+<p>Note that we only opened the line with Brno. Nevertheless, we had to use the <code>next</code> method to move the cursor to this first line.</p>
+<blockquote>
+<p><strong>Task 5.</strong> Add the text field "STATUS" to the table of regions and fill in the value "OK" for those regions where there are deaths than births and "KO" for others.</p>
+</blockquote>
+<h2 id="delete-a-row">Delete a row</h2>
+<p>Another use of the <em>Update</em> cursor is to delete a row. We will now use this and try to erase the city of Brno from the world map for good. However, since we will subsequently want to undo our terrible act and use the <em>Insert</em> cursor to return Brno to the world map, it will be appropriate to save the relevant record somewhere in advance, for example as follows:</p>
+<pre><code class="language-python">with arcpy.da.SearchCursor(&quot;Sidla_body.shp&quot;, [&quot;SHAPE@&quot;, &quot;NAZEV&quot;, &quot;KATEGORIE&quot;],
+                          '&quot;NAZEV&quot; = \'Brno\'') as tab:
+    brno = tab.next()
+</code></pre>
+<p>It is especially important to keep the contents of the <em>Shape</em> column here, which is done using the name <code>"SHAPE@"</code> (this field and its use will be thoroughly explained in the next lesson). The geometry of the feature (in our case the coordinates of the city of Brno) is stored in this field, which we will need when restoring it.</p>
+<p>Now the execution itself:</p>
+<pre><code class="language-python">with arcpy.da.UpdateCursor(&quot;Sidla_body.shp&quot;, [&quot;SHAPE@&quot;, &quot;NAZEV&quot;, &quot;KATEGORIE&quot;],
+                          '&quot;NAZEV&quot; = \'Brno\'') as tab:
+    tab.next()
+    tab.deleteRow()
+</code></pre>
+<p>See the result in the table of cities as well as in the map...</p>
+<h2 id="add-a-new-line-with-insert-cursor">Add a new line with <em>Insert</em> cursor</h2>
+<p>Now, as we have announced, we have realized the impact of our brutal act. Fortunately, there is an <em>Insert</em> cursor, allowing us to insert a new row into the table. It has a simpler syntax because it does not allow us to filter open rows using an SQL query. The only thing we can influence is which columns we open. A new row is always added to the end of the table (even in the case of such an important city as Brno).</p>
+<p>If we work with an attribute table of the vector layer, it is necessary to keep in mind that whenever we add as a new record, it is necessary to feed the <em>Shape</em> field of the table with a corresponding geometry of the added feature. Otherwise, the new line, which should correspond to a feature, will lack a geometry and the whole layer would be damaged and unusable. Fortunately, in the case of Brno, we saved the geometry, so it is not a problem to return it to the table again:</p>
+<pre><code class="language-python">with arcpy.da.InsertCursor(&quot;Sidla_body.shp&quot;, [&quot;SHAPE@&quot;, &quot;NAZEV&quot;, &quot;KATEGORIE&quot;]) as tab:
+    tab.insertRow(brno)
+</code></pre>
+<p>We can only hope that you did the whole procedure of deleting and rescuing Brno in one session, ie that you did not restart the console in the meantime. The variable <code>brno</code> would be deleted and the city lost forever...</p>
+<h2 id="old-cursor-types">Old cursor types</h2>
+<h2 id="summary">Summary</h2>
+<h2 id="exercises">Exercises</h2>
+<ol>
+<li>Write a script that calculates the average shape index for each land cover class for a polygon land cover layer. Solve without cursors.</li>
+<li>Solve the previous task with the help of cursors, save the result in a table in the format <code>.csv</code>.</li>
+</ol>
               
             </div>
           </div>
