@@ -9,7 +9,7 @@
   <meta name="author" content="Vojta Barták">
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>About me... - Python for ArcGIS</title>
+  <title>Lesson 15 Cursors - Python for ArcGIS</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "About me...";
-    var mkdocs_page_input_path = "about_me.md";
+    var mkdocs_page_name = "Lesson 15 Cursors";
+    var mkdocs_page_input_path = "Lesson 15 Reading tables with cursors.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -71,7 +71,7 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">ArcPy</span></p>
-                <ul>
+                <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../Lesson%2010%20Running%20ArcPy%20tools/">Lesson 10: Running ArcPy tools</a>
                     </li>
                     <li class="toctree-l1"><a class="" href="../Lekce 11 Procházení geodat a jejich vlastností pomocí balíčku ArcPy.md">Lekce 11: Procházení a prohlížení geodat</a>
@@ -80,15 +80,17 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../Lesson%2013%20Attribute%20Operations/">Lesson 13: Attribute Operations</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../Lesson%2015%20Reading%20tables%20with%20cursors/">Lesson 15 Cursors</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Lesson 15 Cursors</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#read-rows-using-the-search-cursor">Read rows using the Search cursor</a>
+    </li>
+    </ul>
                     </li>
                     <li class="toctree-l1"><a class="" href="../Lekce 18 Rastrové analýzy.md">Lekce 18: Rastrové analýzy</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">About me...</a>
-    <ul class="current">
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about_me/">About me...</a>
                     </li>
                 </ul>
                 <ul>
@@ -115,11 +117,15 @@
     <li><a href="..">Docs</a> &raquo;</li>
     
       
+        
+          <li>ArcPy &raquo;</li>
+        
+      
     
-    <li>About me...</li>
+    <li>Lesson 15 Cursors</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/edit/master/docs/about_me.md"
+        <a href="https://github.com/vojta-bartak/Python-for-ArcGIS-CZU-EN/edit/master/docs/Lesson 15 Reading tables with cursors.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -131,14 +137,30 @@
           <div role="main">
             <div class="section">
               
-                <h2 id="about-me">About me</h2>
-<p><img alt="" src="../images/profilovka_small.jpg" /></p>
-<p>Ing. Vojtěch Barták, PhD.</p>
+                <h1 id="lesson-15-reading-tables-with-cursors">Lesson 15: Reading tables with cursors</h1>
+<p>In this lesson, you will learn how to browse attribute tables (or other tables in <code>.dbf</code> format) line by line and read and write values from/to individual fields (columns). We will test individual procedures on <a href="https://owncloud.cesnet.cz/index.php/s/87mECJH9RhNIdVz">data</a> of regions (polygons) and large cities (points) of the Czech Republic.</p>
+<blockquote>
+<p><strong>Task 1.</strong> Start a new ArcGIS project and view the data, including attribute tables.</p>
+</blockquote>
+<p>The table is browsed using the so-called <em>cursor</em>, which is an object similar to what we create when opening text files with the <code>open</code> function: it mediates the connection with the given file (table), so it is locked for editing by any other applications as long as we browse it. For this reason, it is necessary to delete the created cursor after finishing work with the table (with the command <code>del</code>), similarly to closing a text file (where we use the <code>close</code> method.</p>
+<p>Cursors in <code>arcpy</code> are of three types:</p>
 <ul>
-<li>Department of Spatial Sciences, Faculty of Environmental Sciences, Czech University of Life Sciences, Prague</li>
-<li>Department of Information Technologies, Unicorn University (Unicorn Vysoká škola s.r.o.)</li>
+<li><strong>Search Cursor</strong> - only for reading values from the table,</li>
+<li><strong>Update Cursor</strong> - for reading and writing to existing table rows,</li>
+<li><strong>Insert Cursor</strong> - for inserting new rows into the table and deleting existing rows.</li>
 </ul>
-<p><a href="https://www.researchgate.net/profile/Vojtech_Bartak2">ResearchGate Profile</a></p>
+<h2 id="read-rows-using-the-search-cursor">Read rows using the <em>Search</em> cursor</h2>
+<p>The syntax for using a cursor is as follows:</p>
+<pre><code class="language-python">tab = arcpy.da.SearchCursor(in_table, field_names, {where_clause}, ...)
+</code></pre>
+<p>In the given code we store the cursor in the variable <code>tab</code>. The <code>arcpy.da.</code> section refers to the fact that the cursors in the <code>arcpy</code> package are implemented in a separate <code>da</code> module (short for "Data Access"). The cursor object (ie object of the class <em>SearchCursor</em>) is created by the class constructor of the same name (<code>SearchCursor</code> function in the example). The most important parameters of the function are:</p>
+<ul>
+<li><strong>in_table</strong> - table to be opened (the whole path as a string, or a relative path with respect to the working directory) - it can be a shapefile, feature class, feature layer, <code>.dbf</code> table, or a table view.</li>
+<li><strong>field_names</strong> - list of fields (columns) we want to open (Python list of strings),</li>
+<li><strong>where_clause</strong> - SQL query (optional) with which we can limit the opened table only to selected rows.</li>
+</ul>
+<p>The cursor contains other parameters (shown in the example by three dots), but we will leave them aside here.</p>
+<p>The cursor can be browsed directly by a <code>for</code> cycle. The iteration variable goes through the individual lines and always takes a value of a tuple of length <em>n</em>, ie the same length as the the number of open fields. Let's look at an example of opening the "CATEGORY" and "NAME" attributes of the dataset of cities:</p>
               
             </div>
           </div>
@@ -146,10 +168,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../tests_upload/" class="btn btn-neutral float-right" title="Tests and homeworks">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../about_me/" class="btn btn-neutral float-right" title="About me...">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../Lesson%2015%20Reading%20tables%20with%20cursors/" class="btn btn-neutral" title="Lesson 15 Cursors"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Lesson%2013%20Attribute%20Operations/" class="btn btn-neutral" title="Lesson 13: Attribute Operations"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -179,10 +201,10 @@
         </span>
     
     
-      <span><a href="../Lesson%2015%20Reading%20tables%20with%20cursors/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Lesson%2013%20Attribute%20Operations/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../tests_upload/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../about_me/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
