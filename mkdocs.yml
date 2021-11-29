@@ -21,7 +21,7 @@ nav:
         - 'Lekce 11: Procházení a prohlížení geodat': 'Lekce 11 Procházení geodat a jejich vlastností pomocí balíčku ArcPy.md'
         - 'Lesson 12: Tool user interfaces': 'Lesson 12 Tool user interfaces.md'
         - 'Lesson 13: Attribute Operations': 'Lesson 13 Attribute Operations.md'
-        - 'Lekce 15: Kurzory': 'Lekce 15 Procházení tabulek pomocí kurzorů.md'
+        - 'Lesson 15 Cursors': 'Lesson 15 Reading tables with cursors.md'
         - 'Lekce 18: Rastrové analýzy': 'Lekce 18 Rastrové analýzy.md'
     - About me...: about_me.md
     - Tests and homeworks: tests_upload.md
